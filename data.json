@@ -1,0 +1,17 @@
+{
+    "nodes" : [
+        {"id": "Apple", "group" : 1},
+        {"id": "Strawberry", "group" : 1},
+        {"id": "Banana", "group" : 1},
+        {"id": "Cucumber", "group" : 2},
+        {"id": "Tomato", "group" : 2},
+        {"id": "Cabbage", "group" : 2}
+    ],
+    "links" : [
+        {"source" : "Apple", "target" : "Banana", "value" : 5},
+        {"source" : "Apple", "target" : "Cabbage", "value" : 1},
+        {"source" : "Strawberry", "target" : "Banana", "value" : 4},
+        {"source" : "Tomato", "target" : "Cucumber", "value" : 3},
+        {"source" : "Cabbage", "target" : "Cucumber", "value" : 2}
+    ]
+}
