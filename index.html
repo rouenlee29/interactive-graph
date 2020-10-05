@@ -40,7 +40,8 @@ svgText.attr("x",50)
 const defaultText = "Hover over node to view text"
 svgText.text(defaultText);
 
-var color = d3.scaleOrdinal(d3.schemeCategory20);
+// var color = d3.scaleOrdinal(d3.schemeCategory20);
+var color = d3.hsl(1,100,50);
 
 // https://www.d3indepth.com/force-layout/
 var simulation = d3.forceSimulation()
@@ -93,7 +94,8 @@ d3.json("data.json", function(error, graph) {
     
   var circles = node.append("circle")
       .attr("r", 10)
-      .attr("fill", function(d) { return color(d.group); })
+      // .attr("fill", function(d) { return color(d.group); })
+      .attr("fill", color)
       .call(d3.drag()
           .on("start", dragstarted)
           .on("drag", dragged)
