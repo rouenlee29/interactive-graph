@@ -1,0 +1,196 @@
+<!-- https://stackoverflow.com/questions/18586921/how-to-launch-html-using-chrome-at-allow-file-access-from-files-mode -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.links line {
+  stroke: rgb(15, 15, 15);
+  /* stroke-opacity: 0.6; */
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+/* text {
+  font-family: sans-serif;
+  font-size: 10px;
+} */
+
+</style>
+<svg width="2000" height="1000">
+
+  <!-- <text x="20" y="50" font-family="serif" font-size="30px">Hello!</text> -->
+
+</svg>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+// var rectangle = svg.append("rect")
+//                             .attr("x", 10)
+//                             .attr("y", 10)
+//                             .attr("width", 50)
+//                             .attr("height", 100);
+
+var svgText = svg.append("text");
+svgText
+  .attr("x",50)
+  .attr("y",50)
+  .attr("font-family", "Georgia");
+
+const defaultText = "Hover over node to view text"
+svgText.text(defaultText);
+
+const defaultDescription = ""
+var svgDescription = svg.append("text");
+svgDescription
+  .attr("x",50)
+  .attr("y",70)
+  .attr("font-family", "Georgia")
+  .attr("font-size", "13px")
+  .attr("font-style", "italic");
+svgDescription.text(defaultDescription)
+
+// var color = d3.scaleOrdinal(d3.schemeCategory20);
+var color = d3.hsl(function(d){return d.scaled_genre_value;},100,50);
+
+// https://www.d3indepth.com/force-layout/
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(70))
+    .force("charge", d3.forceManyBody().strength(-5))
+    .force("center", d3.forceCenter(width / 2, height / 2));
+    // .force("linkDistance",1);
+
+// var graph = {
+//   "nodes": [
+//     {"id": "127 Hours", "genre": "biography, drama", "genre_value": 0.06640975177288055, "scaled_genre_value": 180}, 
+//     {"id": "A Little Help", "genre": "comedy", "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
+//     {"id": "Adventures of Power", "genre": "comedy", "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
+//     {"id": "The A-Team", "genre": "action, adventure", "genre_value": 0.015871849842369556, "scaled_genre_value": 0},
+//     {"id": "Alice in Wonderland", "genre": "family, fantasy", "genre_value": 0.04498301912099123, "scaled_genre_value": 103}
+//     ], 
+// "links": [
+//     {"source_idx": 0, "target_idx": 2, "source": "127 Hours", "target": "A Little Help", "value": 0.41885014157709405}, 
+//     {"source_idx": 0, "target_idx": 3, "source": "127 Hours", "target": "Adventures of Power", "value": 0.48244755233886155}, 
+//     {"source_idx": 1, "target_idx": 2, "source": "The A-Team", "target": "A Little Help", "value": 0.44196822822778525}, 
+//     {"source_idx": 1, "target_idx": 3, "source": "The A-Team", "target": "Adventures of Power", "value": 0.493246618477177}, 
+//     {"source_idx": 1, "target_idx": 4, "source": "The A-Team", "target": "Alice in Wonderland", "value": 0.4401263842713225}, 
+//     {"source_idx": 2, "target_idx": 3, "source": "A Little Help", "target": "Adventures of Power", "value": 0.5257436095080503}, 
+//     {"source_idx": 2, "target_idx": 4, "source": "A Little Help", "target": "Alice in Wonderland", "value": 0.43601514521144}, 
+//     {"source_idx": 3, "target_idx": 4, "source": "Adventures of Power", "target": "Alice in Wonderland", "value": 0.4389207520427561}]
+// };
+
+var graph = JSON.parse("{{data|escapejs}}"); 
+
+// d3.json("data.json", function(error, graph) {
+//   if (error) throw error;
+
+var link = svg.append("g")
+  .attr("class", "links")
+  .selectAll("line")
+  .data(graph.links)
+  .enter().append("line")
+  .attr("stroke-width", function(d) { return 2; })
+  .attr("stroke-opacity", function(d) { return d.value; });
+  // .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+var node = svg.append("g")
+  .attr("class", "nodes")
+  .selectAll("g")
+  .data(graph.nodes)
+  .enter().append("g")
+  .on('mouseover', function (d, i) {
+        d3.select(this).transition()
+              .duration('50')
+              .attr('opacity', '.50');
+        
+        // var tooltip = d3.select(this).append("text")
+        //   .style("visibility", "visible")
+        //   .attr('id', 'tools')
+        //   .text(function(d){return d.id;})
+        //   .attr('x', 10)
+        //   .attr('y', 15);
+        
+        svgText.text(d.id);
+        svgDescription.text("Insert description here");
+
+    })
+    .on('mouseout', function (d, i) {
+      
+        d3.select(this).transition()
+              .duration('50')
+              .attr('opacity', '1');
+        
+        //d3.select('#tools').remove();
+        svgText.text(defaultText);
+        svgDescription.text(defaultDescription);
+    });
+  
+
+var circles = node.append("circle")
+    .attr("r", 10)
+    // .attr("fill", function(d){ return d3.hsl(d.scaled_genre_value,97,79); })
+    // .attr("fill", function(d){ return d3.hsl(30,97,79); })
+    .attr("fill", function(d){ return d3.color(`hsl(${d.scaled_genre_value}, 100%, 70.5%)`); })
+    .call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+
+var lables = node.append("text")
+    .text(function(d) {
+      return d.id;
+    })
+    .attr('x', 6)
+    .attr('y', 3)
+    .attr('font-family', 'sans-serif')
+    .attr('font-size', '10px');
+
+node.append("title")
+    .text(function(d) { return d.id; });
+
+simulation
+    .nodes(graph.nodes)
+    .on("tick", ticked);
+
+simulation.force("link")
+  .links(graph.links);
+    
+function ticked() {
+  link
+      .attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
+
+  node
+      .attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      })
+};
+// });
+
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragged(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
+
+</script>
