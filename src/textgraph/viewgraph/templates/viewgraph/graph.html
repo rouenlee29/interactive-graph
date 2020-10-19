@@ -67,29 +67,26 @@ var simulation = d3.forceSimulation()
     .force("center", d3.forceCenter(width / 2, height / 2));
     // .force("linkDistance",1);
 
-// var graph = {
-//   "nodes": [
-//     {"id": "127 Hours", "genre": "biography, drama", "genre_value": 0.06640975177288055, "scaled_genre_value": 180}, 
-//     {"id": "A Little Help", "genre": "comedy", "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
-//     {"id": "Adventures of Power", "genre": "comedy", "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
-//     {"id": "The A-Team", "genre": "action, adventure", "genre_value": 0.015871849842369556, "scaled_genre_value": 0},
-//     {"id": "Alice in Wonderland", "genre": "family, fantasy", "genre_value": 0.04498301912099123, "scaled_genre_value": 103}
-//     ], 
-// "links": [
-//     {"source_idx": 0, "target_idx": 2, "source": "127 Hours", "target": "A Little Help", "value": 0.41885014157709405}, 
-//     {"source_idx": 0, "target_idx": 3, "source": "127 Hours", "target": "Adventures of Power", "value": 0.48244755233886155}, 
-//     {"source_idx": 1, "target_idx": 2, "source": "The A-Team", "target": "A Little Help", "value": 0.44196822822778525}, 
-//     {"source_idx": 1, "target_idx": 3, "source": "The A-Team", "target": "Adventures of Power", "value": 0.493246618477177}, 
-//     {"source_idx": 1, "target_idx": 4, "source": "The A-Team", "target": "Alice in Wonderland", "value": 0.4401263842713225}, 
-//     {"source_idx": 2, "target_idx": 3, "source": "A Little Help", "target": "Adventures of Power", "value": 0.5257436095080503}, 
-//     {"source_idx": 2, "target_idx": 4, "source": "A Little Help", "target": "Alice in Wonderland", "value": 0.43601514521144}, 
-//     {"source_idx": 3, "target_idx": 4, "source": "Adventures of Power", "target": "Alice in Wonderland", "value": 0.4389207520427561}]
-// };
+var graph = {
+  "nodes": [
+    {"id": "127 Hours", "genre": "biography, drama", "genre_value": 0.06640975177288055, "scaled_genre_value": 180}, 
+    {"id": "A Little Help", "genre": "comedy", "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
+    {"id": "Adventures of Power", "genre": "comedy", "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
+    {"id": "The A-Team", "genre": "action, adventure", "genre_value": 0.015871849842369556, "scaled_genre_value": 0},
+    {"id": "Alice in Wonderland", "genre": "family, fantasy", "genre_value": 0.04498301912099123, "scaled_genre_value": 103}
+    ], 
+"links": [
+    {"source_idx": 0, "target_idx": 2, "source": "127 Hours", "target": "A Little Help", "value": 0.41885014157709405}, 
+    {"source_idx": 0, "target_idx": 3, "source": "127 Hours", "target": "Adventures of Power", "value": 0.48244755233886155}, 
+    {"source_idx": 1, "target_idx": 2, "source": "The A-Team", "target": "A Little Help", "value": 0.44196822822778525}, 
+    {"source_idx": 1, "target_idx": 3, "source": "The A-Team", "target": "Adventures of Power", "value": 0.493246618477177}, 
+    {"source_idx": 1, "target_idx": 4, "source": "The A-Team", "target": "Alice in Wonderland", "value": 0.4401263842713225}, 
+    {"source_idx": 2, "target_idx": 3, "source": "A Little Help", "target": "Adventures of Power", "value": 0.5257436095080503}, 
+    {"source_idx": 2, "target_idx": 4, "source": "A Little Help", "target": "Alice in Wonderland", "value": 0.43601514521144}, 
+    {"source_idx": 3, "target_idx": 4, "source": "Adventures of Power", "target": "Alice in Wonderland", "value": 0.4389207520427561}]
+};
 
-var graph = JSON.parse("{{data|escapejs}}"); 
-
-// d3.json("data.json", function(error, graph) {
-//   if (error) throw error;
+//var graph = JSON.parse("{{data|escapejs}}"); 
 
 var link = svg.append("g")
   .attr("class", "links")
