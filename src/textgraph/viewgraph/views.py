@@ -27,16 +27,12 @@ def process_user_input(request):
 
 
 def compile_json_object(chosen_movie_idx):
-#     with open('data.json', encoding='utf-8') as data_file:
-#         data = json.loads(data_file.read())
     
     movie_idx = []
     chosen_links = []
     chosen_nodes = []
     nodes = data['nodes']
     links = data['links']
-
-    
         
     for L in links:
         if (L['source_idx'] in chosen_movie_idx) or (L['target_idx'] in chosen_movie_idx):
@@ -55,9 +51,9 @@ def compile_json_object(chosen_movie_idx):
 
     userJSON = {"nodes" : chosen_nodes, "links" : chosen_links}
 
-    print('========================================')
-    print(userJSON)
-    print('=========================================')
+    # print('========================================')
+    # print(userJSON)
+    # print('=========================================')
 
     return userJSON
 
