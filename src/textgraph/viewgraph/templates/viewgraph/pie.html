@@ -69,11 +69,11 @@ var simulation = d3.forceSimulation()
 
 var graph = {
   "nodes": [
-    {"id": "127 Hours", "genre": ["biography", "drama"], "genre_value": 0.06640975177288055, "scaled_genre_value": 180}, 
-    {"id": "A Little Help", "genre": ["comedy"], "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
-    {"id": "Adventures of Power", "genre": ["comedy"], "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
-    {"id": "The A-Team", "genre": ["action", "biography"], "genre_value": 0.015871849842369556, "scaled_genre_value": 0},
-    {"id": "Alice in Wonderland", "genre": ["drama", "animation"], "genre_value": 0.04498301912099123, "scaled_genre_value": 103}
+    {"idx" : 0, "id": "127 Hours", "genre": ["biography", "drama"], "genre_value": 0.06640975177288055, "scaled_genre_value": 180}, 
+    {"idx" : 2, "id": "A Little Help", "genre": ["comedy"], "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
+    {"idx" : 3, "id": "Adventures of Power", "genre": ["comedy"], "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
+    {"idx" : 1, "id": "The A-Team", "genre": ["action", "biography"], "genre_value": 0.015871849842369556, "scaled_genre_value": 0},
+    {"idx" : 4, "id": "Alice in Wonderland", "genre": ["drama", "animation"], "genre_value": 0.04498301912099123, "scaled_genre_value": 103}
     ], 
 "links": [
     {"source_idx": 0, "target_idx": 2, "source": "127 Hours", "target": "A Little Help", "value": 0.41885014157709405}, 
@@ -95,28 +95,69 @@ const colorMapping = {
 }
 
 //var graph = JSON.parse("{{data|escapejs}}"); 
+const defaultStrokeWidth = 2;
+const defaultSrokeColor = '#b8b8b8';
 
 var link = svg.append("g")
   .attr("class", "links")
   .selectAll("line")
   .data(graph.links)
   .enter().append("line")
-  .attr("stroke-width", function(d) { return 2; })
+  .style('stroke', defaultSrokeColor)
+  .attr("stroke-width", function(d) { return defaultStrokeWidth; })
   .attr("stroke-opacity", function(d) { return d.value; });
-  // .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+  // TODO modify stroke opacity  
+
+// add background glow
+var defs = svg.append("defs");
+
+var filter = defs.append("filter")
+.attr("id","glow");
+
+filter.append("feGaussianBlur")
+  .attr("class", "blur")
+  .attr("stdDeviation","10")
+  .attr("result","coloredBlur");
+
+var feMerge = filter.append("feMerge");
+feMerge.append("feMergeNode")
+  .attr("in","coloredBlur");
+feMerge.append("feMergeNode")
+  .attr("in","SourceGraphic");
 
 var node = svg.append("g")
   .attr("class", "nodes")
   .selectAll("g")
   .data(graph.nodes)
-  .enter().append("g")
-  .on('mouseover', function (d, i) {
+  .enter().append("g");
+
+
+// node.style("filter","url(#glow)");
+node.on('mouseover', function (d, i) {
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '.50');
+        //d3.select(this).style("filter", "url(#glow)");
+        link
+          .style('stroke', function (link_d) { 
+            return link_d.source_idx === d.idx || link_d.target_idx === d.idx ? '#69b3b2' : defaultSrokeColor;})
+          .style('stroke-width', function (link_d) { 
+            return link_d.source_idx === d.idx || link_d.target_idx === d.idx ? 4 : defaultStrokeWidth;})
 
-        // d3.select(this).style("filter", "url(#glow)");
-      
+        let related_idx = [];
+        graph.links.forEach(function(item, index){
+            if (item.source_idx === d.idx || item.target_idx == d.idx){
+              related_idx.push(item.source_idx === d.idx ? item.target_idx : item.source_idx)
+            };
+        })
+        console.log(related_idx);
+
+        // make linked nodes have a glow 
+        node
+            .style('filter', function(node_d){
+              return related_idx.includes(node_d.idx) ? "url(#glow)" : "none" 
+        })
+            
         svgText.text(d.id);
         svgDescription.text("Insert description here");
 
@@ -126,7 +167,14 @@ var node = svg.append("g")
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '1');
+
+        link
+          .style('stroke', 'b8b8b8')
+          .style('stroke-width', '2')
+          .attr("stroke-opacity", function(d) { return d.value; });
         
+        node.style('filter','none');
+
         //d3.select('#tools').remove();
         svgText.text(defaultText);
         svgDescription.text(defaultDescription);
@@ -135,6 +183,28 @@ var node = svg.append("g")
       .on("start", dragstarted)
       .on("drag", dragged)
       .on("end", dragended));
+
+//console.log(d3.selectAll('.nodes').selectAll('g'));
+// console.log(document.getElementsByClassName("nodes").select("g"));
+
+// On click on the node
+node.on('click',function(d) {
+  // Iterate throw the links
+  graph.links.forEach(function (l, i) {
+       if (d.idx === l.source_idx )
+       {
+          console.log(l.target_idx);
+          
+          // d3.select("#list").append("p").text(l.target.name);
+       }
+      //  if (d === l.target )
+      //  {
+      //     console.log(l.source);
+      //     d3.select("#list").append("p").text(l.source.name);
+      //  }
+   });
+ });
+
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -145,6 +215,7 @@ const data = [
         { "color": 4, "percent": 20 }
             ]
 
+
 function createPieData(d){
     let pieData = [];
     for (let i = 0; i < d.genre.length; i++){
@@ -153,7 +224,7 @@ function createPieData(d){
         pieDict['percent'] = 100 / d.genre.length;
         pieData.push(pieDict);
     }
-    console.log(pieData)
+    // console.log(pieData)
 
     return pieData;
 };
@@ -170,10 +241,13 @@ node.each(function (d) {
       });
 
 
+
+
 var labels = node.append("text")
     .text(function(d) {
       return d.id;
     })
+    .attr('idx', function(d){return d.idx;})
     .attr('x', 6)
     .attr('y', 3)
     .attr('font-family', 'sans-serif')
@@ -221,3 +295,5 @@ function dragended(d) {
 }
 
 </script>
+
+<!-- selected = d3.selectAll('.nodes').selectAll('g').filter((d, i) => d.idx ==1) -->
