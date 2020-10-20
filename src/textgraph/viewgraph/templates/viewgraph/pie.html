@@ -137,7 +137,7 @@ node.on('mouseover', function (d, i) {
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '.50');
-        //d3.select(this).style("filter", "url(#glow)");
+        
         link
           .style('stroke', function (link_d) { 
             return link_d.source_idx === d.idx || link_d.target_idx === d.idx ? '#69b3b2' : defaultSrokeColor;})
@@ -150,7 +150,6 @@ node.on('mouseover', function (d, i) {
               related_idx.push(item.source_idx === d.idx ? item.target_idx : item.source_idx)
             };
         })
-        console.log(related_idx);
 
         // make linked nodes have a glow 
         node
