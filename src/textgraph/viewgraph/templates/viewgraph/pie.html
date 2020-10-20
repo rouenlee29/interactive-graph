@@ -58,7 +58,7 @@ svgDescription.text(defaultDescription)
 
 // https://www.d3indepth.com/force-layout/
 var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(90))
+    .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
     .force("charge", d3.forceManyBody().strength(-500).distanceMax(height/2))
     .force("center", d3.forceCenter(width / 2, height / 2))
     // .force("collide",d3.forceCollide( function(d){return d.r + 8 }).iterations(16))
@@ -114,14 +114,33 @@ var defs = svg.append("defs");
 var filter = defs.append("filter")
 .attr("id","glow");
 
+filter.append("feMorphology")
+  .attr("operator", "dilate")
+  .attr("radius", "4")
+  .attr("in", "SourceGraphic")
+  .attr("result", "thicken");
+
 filter.append("feGaussianBlur")
+  .attr("in", "thicken")
   .attr("class", "blur")
-  .attr("stdDeviation","10")
+  .attr("stdDeviation","20")
   .attr("result","coloredBlur");
+  
+
+filter.append("feFlood").attr("flood-color", "rgb(255, 255, 0)")
+.attr("result", "glowColor");
+
+filter.append("feComposite").attr("in", "glowColor")
+  .attr("in2", "coloredBlur")
+  .attr("operator", "in")
+  .attr("result", "softGlow_colored")
+
+// filter.append("feGaussianBlur").attr("in", "thicken")
+// .attr("result", "blurred");
 
 var feMerge = filter.append("feMerge");
 feMerge.append("feMergeNode")
-  .attr("in","coloredBlur");
+  .attr("in","softGlow_colored");
 feMerge.append("feMergeNode")
   .attr("in","SourceGraphic");
 
@@ -182,27 +201,6 @@ node.on('mouseover', function (d, i) {
       .on("start", dragstarted)
       .on("drag", dragged)
       .on("end", dragended));
-
-//console.log(d3.selectAll('.nodes').selectAll('g'));
-// console.log(document.getElementsByClassName("nodes").select("g"));
-
-// On click on the node
-node.on('click',function(d) {
-  // Iterate throw the links
-  graph.links.forEach(function (l, i) {
-       if (d.idx === l.source_idx )
-       {
-          console.log(l.target_idx);
-          
-          // d3.select("#list").append("p").text(l.target.name);
-       }
-      //  if (d === l.target )
-      //  {
-      //     console.log(l.source);
-      //     d3.select("#list").append("p").text(l.source.name);
-      //  }
-   });
- });
 
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
