@@ -1,0 +1,58 @@
+<!-- source : https://www.tutorialsteacher.com/d3js/create-pie-chart-using-d3js -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    
+</head>
+<body>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <svg width="300" height="200"> </svg>
+    <script>
+        function createPie(data){
+            const colorMapping = {
+            "Action": "#4daf4a", "Comedy": "#cbf2bd",
+            "Animation": "#afe9ff", "Drama": "#ffb09e",
+            "Adventure": "#fff2b4"}
+
+            let colors = [];
+            for (let i=0; i<data.length; i++){
+                colors.push(colorMapping[data[i]])
+            }; 
+            
+            var svg = d3.select("svg"),
+                width = svg.attr("width"),
+                height = svg.attr("height"),
+                radius = Math.min(width, height) / 2,
+                g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+        
+            var color = d3.scaleOrdinal(['#4daf4a','#377eb8','#ff7f00','#984ea3','#e41a1c']);
+        
+            // Generate the pie
+            var pie = d3.pie();
+        
+            // Generate the arcs
+            var arc = d3.arc()
+                        .innerRadius(0)
+                        .outerRadius(radius);
+        
+            //Generate groups
+            var arcs = g.selectAll("arc")
+                        .data(pie(d3.range(data.length).map( _ => 360/data.length)))
+                        .enter()
+                        .append("g")
+                        .attr("class", "arc")
+        
+            //Draw arc paths
+            arcs.append("path")
+                .attr("fill", function(d,i){return colors[i]})
+                .attr("d", arc);
+        };
+        var data = ["Action", "Adventure", "Comedy"];
+        createPie(data);
+        
+    </script>
+    </body>
+</html>

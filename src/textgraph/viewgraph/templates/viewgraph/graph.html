@@ -26,17 +26,13 @@
 </svg>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="node-pie.js"></script>
 <script>
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
-// var rectangle = svg.append("rect")
-//                             .attr("x", 10)
-//                             .attr("y", 10)
-//                             .attr("width", 50)
-//                             .attr("height", 100);
 
 var svgText = svg.append("text");
 svgText
@@ -58,7 +54,7 @@ svgDescription
 svgDescription.text(defaultDescription)
 
 // var color = d3.scaleOrdinal(d3.schemeCategory20);
-var color = d3.hsl(function(d){return d.scaled_genre_value;},100,50);
+//var color = d3.hsl(function(d){return d.scaled_genre_value;},100,50);
 
 // https://www.d3indepth.com/force-layout/
 var simulation = d3.forceSimulation()
@@ -106,14 +102,7 @@ var node = svg.append("g")
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '.50');
-        
-        // var tooltip = d3.select(this).append("text")
-        //   .style("visibility", "visible")
-        //   .attr('id', 'tools')
-        //   .text(function(d){return d.id;})
-        //   .attr('x', 10)
-        //   .attr('y', 15);
-        
+      
         svgText.text(d.id);
         svgDescription.text("Insert description here");
 
@@ -127,20 +116,25 @@ var node = svg.append("g")
         //d3.select('#tools').remove();
         svgText.text(defaultText);
         svgDescription.text(defaultDescription);
-    });
-  
+    })
+  .call(d3.drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended));
 
-var circles = node.append("circle")
-    .attr("r", 10)
-    // .attr("fill", function(d){ return d3.hsl(d.scaled_genre_value,97,79); })
-    // .attr("fill", function(d){ return d3.hsl(30,97,79); })
-    .attr("fill", function(d){ return d3.color(`hsl(${d.scaled_genre_value}, 100%, 70.5%)`); })
-    .call(d3.drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended));
+var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-var lables = node.append("text")
+/* Draw the respective pie chart for each node */
+node.each(function (d) {
+          NodePieBuilder.drawNodePie(d3.select(this), d.pieChart, {
+              parentNodeColor: color(d.group),
+              outerStrokeWidth: 12,
+              labelColor: color(d.group)
+          });
+      });
+
+    
+var labels = node.append("text")
     .text(function(d) {
       return d.id;
     })
