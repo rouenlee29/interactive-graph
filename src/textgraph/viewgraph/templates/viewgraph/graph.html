@@ -58,18 +58,23 @@ svgDescription.text(defaultDescription)
 
 // https://www.d3indepth.com/force-layout/
 var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(70))
-    .force("charge", d3.forceManyBody().strength(-5))
-    .force("center", d3.forceCenter(width / 2, height / 2));
-    // .force("linkDistance",1);
+    .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
+    .force("charge", d3.forceManyBody().strength(-500).distanceMax(height/2))
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    // .force("collide",d3.forceCollide( function(d){return d.r + 8 }).iterations(16))
+    .velocityDecay(0.9)
+    .alphaTarget(0.5)
+    // .alphaDecay(0.005)
+    ;
 
+//var graph = JSON.parse("{{data|escapejs}}"); 
 var graph = {
   "nodes": [
-    {"id": "127 Hours", "genre": "biography, drama", "genre_value": 0.06640975177288055, "scaled_genre_value": 180}, 
-    {"id": "A Little Help", "genre": "comedy", "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
-    {"id": "Adventures of Power", "genre": "comedy", "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
-    {"id": "The A-Team", "genre": "action, adventure", "genre_value": 0.015871849842369556, "scaled_genre_value": 0},
-    {"id": "Alice in Wonderland", "genre": "family, fantasy", "genre_value": 0.04498301912099123, "scaled_genre_value": 103}
+    {"idx" : 0, "id": "127 Hours", "genre": ["biography", "drama"], "genre_value": 0.06640975177288055, "scaled_genre_value": 180}, 
+    {"idx" : 2, "id": "A Little Help", "genre": ["comedy"], "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
+    {"idx" : 3, "id": "Adventures of Power", "genre": ["comedy"], "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
+    {"idx" : 1, "id": "The A-Team", "genre": ["action", "biography"], "genre_value": 0.015871849842369556, "scaled_genre_value": 0},
+    {"idx" : 4, "id": "Alice in Wonderland", "genre": ["drama", "animation"], "genre_value": 0.04498301912099123, "scaled_genre_value": 103}
     ], 
 "links": [
     {"source_idx": 0, "target_idx": 2, "source": "127 Hours", "target": "A Little Help", "value": 0.41885014157709405}, 
@@ -82,27 +87,96 @@ var graph = {
     {"source_idx": 3, "target_idx": 4, "source": "Adventures of Power", "target": "Alice in Wonderland", "value": 0.4389207520427561}]
 };
 
-//var graph = JSON.parse("{{data|escapejs}}"); 
+const colorMapping = {
+    "action": "#ffc8f0", 
+    "comedy": "#cbf2bd", 
+    "animation": "#afe9ff", 
+    "drama": "#ffb09e", 
+    "biography": "#fff2b4"
+}
+
+
+const defaultStrokeWidth = 2;
+const defaultSrokeColor = '#b8b8b8';
 
 var link = svg.append("g")
   .attr("class", "links")
   .selectAll("line")
   .data(graph.links)
   .enter().append("line")
-  .attr("stroke-width", function(d) { return 2; })
+  .style('stroke', defaultSrokeColor)
+  .attr("stroke-width", function(d) { return defaultStrokeWidth; })
   .attr("stroke-opacity", function(d) { return d.value; });
-  // .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+  // TODO modify stroke opacity  
+
+// add background glow
+var defs = svg.append("defs");
+
+var filter = defs.append("filter")
+.attr("id","glow");
+
+filter.append("feMorphology")
+  .attr("operator", "dilate")
+  .attr("radius", "4")
+  .attr("in", "SourceGraphic")
+  .attr("result", "thicken");
+
+filter.append("feGaussianBlur")
+  .attr("in", "thicken")
+  .attr("class", "blur")
+  .attr("stdDeviation","20")
+  .attr("result","coloredBlur");
+  
+
+filter.append("feFlood").attr("flood-color", "rgb(255, 255, 0)")
+.attr("result", "glowColor");
+
+filter.append("feComposite").attr("in", "glowColor")
+  .attr("in2", "coloredBlur")
+  .attr("operator", "in")
+  .attr("result", "softGlow_colored")
+
+// filter.append("feGaussianBlur").attr("in", "thicken")
+// .attr("result", "blurred");
+
+var feMerge = filter.append("feMerge");
+feMerge.append("feMergeNode")
+  .attr("in","softGlow_colored");
+feMerge.append("feMergeNode")
+  .attr("in","SourceGraphic");
 
 var node = svg.append("g")
   .attr("class", "nodes")
   .selectAll("g")
   .data(graph.nodes)
-  .enter().append("g")
-  .on('mouseover', function (d, i) {
+  .enter().append("g");
+
+
+// node.style("filter","url(#glow)");
+node.on('mouseover', function (d, i) {
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '.50');
-      
+        
+        link
+          .style('stroke', function (link_d) { 
+            return link_d.source_idx === d.idx || link_d.target_idx === d.idx ? '#69b3b2' : defaultSrokeColor;})
+          .style('stroke-width', function (link_d) { 
+            return link_d.source_idx === d.idx || link_d.target_idx === d.idx ? 4 : defaultStrokeWidth;})
+
+        let related_idx = [];
+        graph.links.forEach(function(item, index){
+            if (item.source_idx === d.idx || item.target_idx == d.idx){
+              related_idx.push(item.source_idx === d.idx ? item.target_idx : item.source_idx)
+            };
+        })
+
+        // make linked nodes have a glow 
+        node
+            .style('filter', function(node_d){
+              return related_idx.includes(node_d.idx) ? "url(#glow)" : "none" 
+        })
+            
         svgText.text(d.id);
         svgDescription.text("Insert description here");
 
@@ -112,7 +186,14 @@ var node = svg.append("g")
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '1');
+
+        link
+          .style('stroke', 'b8b8b8')
+          .style('stroke-width', '2')
+          .attr("stroke-opacity", function(d) { return d.value; });
         
+        node.style('filter','none');
+
         //d3.select('#tools').remove();
         svgText.text(defaultText);
         svgDescription.text(defaultDescription);
@@ -122,22 +203,49 @@ var node = svg.append("g")
       .on("drag", dragged)
       .on("end", dragended));
 
+
 var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+const data = [
+        { "color": 1, "percent": 40 },
+        { "color": 2, "percent": 20 },
+        { "color": 3, "percent": 20 },
+        { "color": 4, "percent": 20 }
+            ]
+
+
+function createPieData(d){
+    let pieData = [];
+    for (let i = 0; i < d.genre.length; i++){
+        var pieDict = {};
+        pieDict['color'] = colorMapping[d.genre[i]]
+        pieDict['percent'] = 100 / d.genre.length;
+        pieData.push(pieDict);
+    }
+    // console.log(pieData)
+
+    return pieData;
+};
 
 /* Draw the respective pie chart for each node */
 node.each(function (d) {
-          NodePieBuilder.drawNodePie(d3.select(this), d.pieChart, {
-              parentNodeColor: color(d.group),
+          NodePieBuilder.drawNodePie(d3.select(this),
+          createPieData(d), 
+          {
+              parentNodeColor: color(1),
               outerStrokeWidth: 12,
-              labelColor: color(d.group)
+              labelColor: color(1)
           });
       });
 
-    
+
+
+
 var labels = node.append("text")
     .text(function(d) {
       return d.id;
     })
+    .attr('idx', function(d){return d.idx;})
     .attr('x', 6)
     .attr('y', 3)
     .attr('font-family', 'sans-serif')
@@ -185,3 +293,5 @@ function dragended(d) {
 }
 
 </script>
+
+<!-- selected = d3.selectAll('.nodes').selectAll('g').filter((d, i) => d.idx ==1) -->
