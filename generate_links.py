@@ -99,12 +99,17 @@ def create_node_info(indexes, titles, genre_categories, description):
   nodes = []
 
   for i in indexes:
-    nodes.append({"idx" : i,"id": titles[i], "genre": genre_categories[i], "description" : description[i]})
+    short_description = description[i][:175] + '...'
+    nodes.append({"idx" : i,"id": titles[i], "genre": genre_categories[i], "description" : short_description})
   
   return nodes
 
 def scale_similarity_value(x, similarity_threshold):
-  return (1/(1-similarity_threshold))*(x-similarity_threshold)
+  c = 1 - (0.5/(1-similarity_threshold))
+  scaled = (0.5/(1-similarity_threshold))*x + c
+  assert scaled >= similarity_threshold
+  assert scaled <= 1
+  return scaled
 
 def main(args):
   debug = args['debug']
