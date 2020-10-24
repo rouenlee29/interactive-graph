@@ -3,9 +3,18 @@ from django.http import HttpResponse
 import json
 
 def index(request):
-    #return HttpResponse("Hello, world. You're at the polls index.")
+    
     context = {'name' : "Rowen"}
     return render(request, 'viewgraph/index.html', context)
+
+def landing_page(request):
+    with open('C:/Users/leero/Projects/text-graph/data.json', encoding='utf-8') as data_file:
+     
+        data = json.loads(data_file.read())
+    #print(dataJSON)
+    dataJSON = json.dumps(data)
+    return render(request,'viewgraph/graph.html', {'data': dataJSON})
+
 
 def second_index(request):
     return HttpResponse("Hello, world. You're at the second index.")
