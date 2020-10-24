@@ -1,19 +1,57 @@
+import argparse
 import json
 import numpy as np
+import pandas as pd
+import re
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 import spacy
-import pandas as pd
-import re
 
+genre_mapping = {
+    'biography/documentary': ['biography', 'documentary', 'biographical', 'historical', 'biopic'], 
+    'action/adventure/thriller': ['action', 'superhero', 'disaster', 'crime', 'suspense', 'martial', 'adventure', 
+                         'war', 'spy', 'epic', 'thriller'], 
+    'comedy': ['comedy', 'parody', 'spoof'], 
+    'drama': ['dramedy', 'drama', 'dramatic'], 
+    'family': ['family', 'child', 'children'], 
+    'sciencefiction/fantasy': ['fantasy', 'sci-fi', 'science-fiction', 'science fiction'], 
+    'romance': ['romance', 'erotic', 'romantic'], 
+    'musical': ['musical', 'dance'], 
+    'horror/mystery': ['mystery', 'horror', 'slasher', 'supernatural', 'apocalyptic', 'dark'], 
+    'animation': ['animation', 'anime', 'animated']
+}
 
+def define_genre_category(df):
+    genres = df['Genre'].values
+    
+    genre_category = []
+    
+    for g in genres:
+        movie_genre_category = []
+        
+        for m in genre_mapping:
+            genre_word_list = genre_mapping[m]
+            
+            for w in genre_word_list:
+                if w in g:
+                    movie_genre_category.append(m)
+                    break
+        genre_category.append(movie_genre_category)
+    return genre_category
 
+    
 def read_csv(path, debug):
   df = pd.read_csv(path)
   df = df[(df['Release Year']>=2010) & (df['Director'] != 'Unknown') & (df['Origin/Ethnicity'] == 'American')]
 
   if debug:
-    df = df.head()
+    df = df.head(30)
+    
+  genre_category = define_genre_category(df)
+  
+  df['genre_category'] = genre_category
+  df = df[df.astype(str)['genre_category'] != '[]']
+   
   return df
 
 def spacy_tokeniser(String):
@@ -56,64 +94,82 @@ def get_indexes(links):
       indexes.append(link['target_idx'])
   return indexes
 
-def create_node_info(indexes, titles, genres):
+def create_node_info(indexes, titles, genre_categories, description):
   # get genre value for all movies
   nodes = []
-  min_genre_value = 999
-  max_genre_value = -999
 
   for i in indexes:
-    genre_value = quantify_genre(genres[i])
-    nodes.append({"id": titles[i], "genre": genres[i], "genre_value": genre_value})
-
-    if genre_value < min_genre_value:
-      min_genre_value = genre_value
-
-    if genre_value > max_genre_value:
-      max_genre_value = genre_value
-
-  for n in nodes:
-    # scale value to be between 0 and 180
-    n['scaled_genre_value'] = int(((n['genre_value'] - min_genre_value) / (max_genre_value - min_genre_value))*180)
+    nodes.append({"idx" : i,"id": titles[i], "genre": genre_categories[i], "description" : description[i]})
+  
   return nodes
 
+def main(args):
+  debug = args['debug']
+  if debug:
+    print('In debug mode...')
+  else:
+    print('Not in debug mode...')
+
+  nlp = spacy.load('en')
+
+  # create df
+  path = './wiki_movie_plots_deduped.csv'
+  output_path = './data.json'
+  df = read_csv(path, debug=debug)
+
+  # compute tfidf matrix
+  corpus = df['Plot'].values
+  vectorizer = TfidfVectorizer()
+  X = vectorizer.fit_transform(corpus)
+
+  L = len(df)
+  similarity = cosine_similarity(X,X)
+  titles = df['Title'].values
+
+  # generate links
+  if debug:
+    similarity_threshold = 0.3
+  else:
+    similarity_threshold = 0.5
+
+  links = []
+  for i in range(L):
+    for j in range(L):
+      if (i < j) and similarity[i][j] >= similarity_threshold:
+          link = {}
+          link['source_idx'] = i
+          link['target_idx'] = j
+          link['source'] = titles[i]
+          link['target'] = titles[j]
+          link['value'] = similarity[i][j]
+          links.append(link)
+
+  # print(similarity)
+  indexes = get_indexes(links)
+  
+  
+  #indexes = [1,2,3,4,5]
+  nodes = create_node_info(indexes, titles = df['Title'].values, 
+                            genre_categories = df['genre_category'].values,
+                          description = df['Plot'].values)
+  
+
+  # write to json file
+  
+  print(f'Number of links: {len(links)}')
+  print(f'Number of nodes: {len(nodes)}')
+  print(f'Saving data to {output_path}...')
+
+  json_data = {"nodes" : nodes, "links" : links}
+  with open(output_path, 'w') as outfile:
+      json.dump(json_data, outfile)
+
+
 if __name__ == "__main__":
-    nlp = spacy.load('en')
-    debug=False
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--debug", help = "Whether is in debug mode", default = False, required = False)
+    args = vars(parser.parse_args())
+    
+    main(args)
 
-    # create df
-    path = './wiki_movie_plots_deduped.csv'
-    output_path = './data.json'
-    df = read_csv(path, debug=debug)
-
-    # compute tfidf matrix
-    corpus = df['Plot'].values
-    vectorizer = TfidfVectorizer()
-    X = vectorizer.fit_transform(corpus)
-
-    L = len(df)
-    similarity = cosine_similarity(X,X)
-    titles = df['Title'].values
-
-    # generate links
-    links = []
-    for i in range(L):
-      for j in range(L):
-        if (i < j) and similarity[i][j] >= 0.4:
-            link = {}
-            link['source_idx'] = i
-            link['target_idx'] = j
-            link['source'] = titles[i]
-            link['target'] = titles[j]
-            link['value'] = similarity[i][j]
-            links.append(link)
-
-    indexes = get_indexes(links)
-    #indexes = [1,2,3,4,5]
-    nodes = create_node_info(indexes, titles = df['Title'].values, genres = df['Genre'].values)
-
-    # write to json file
-
-    json_data = {"nodes" : nodes, "links" : links}
-    with open(output_path, 'w') as outfile:
-        json.dump(json_data, outfile)
+    
