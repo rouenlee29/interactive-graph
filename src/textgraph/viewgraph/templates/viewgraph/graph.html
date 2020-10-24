@@ -56,46 +56,28 @@ svgDescription
   .attr("font-style", "italic");
 svgDescription.text(defaultDescription)
 
-// var color = d3.scaleOrdinal(d3.schemeCategory20);
-//var color = d3.hsl(function(d){return d.scaled_genre_value;},100,50);
-
-// https://www.d3indepth.com/force-layout/
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
     .force("charge", d3.forceManyBody().strength(-500).distanceMax(height/2))
     .force("center", d3.forceCenter(width / 2, height / 2))
-    // .force("collide",d3.forceCollide( function(d){return d.r + 8 }).iterations(16))
     .velocityDecay(0.9)
     .alphaTarget(0.5)
-    // .alphaDecay(0.005)
     ;
 
 var graph = JSON.parse("{{data|escapejs}}"); 
-// var graph = {
-//   "nodes": [
-//     {"idx" : 0, "id": "127 Hours", "genre": ["biography", "drama"], "genre_value": 0.06640975177288055, "scaled_genre_value": 180}, 
-//     {"idx" : 2, "id": "A Little Help", "genre": ["comedy"], "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
-//     {"idx" : 3, "id": "Adventures of Power", "genre": ["comedy"], "genre_value": 0.030338691547513008, "scaled_genre_value": 51}, 
-//     {"idx" : 1, "id": "The A-Team", "genre": ["action", "biography"], "genre_value": 0.015871849842369556, "scaled_genre_value": 0},
-//     {"idx" : 4, "id": "Alice in Wonderland", "genre": ["drama", "animation"], "genre_value": 0.04498301912099123, "scaled_genre_value": 103}
-//     ], 
-// "links": [
-//     {"source_idx": 0, "target_idx": 2, "source": "127 Hours", "target": "A Little Help", "value": 0.41885014157709405}, 
-//     {"source_idx": 0, "target_idx": 3, "source": "127 Hours", "target": "Adventures of Power", "value": 0.48244755233886155}, 
-//     {"source_idx": 1, "target_idx": 2, "source": "The A-Team", "target": "A Little Help", "value": 0.44196822822778525}, 
-//     {"source_idx": 1, "target_idx": 3, "source": "The A-Team", "target": "Adventures of Power", "value": 0.493246618477177}, 
-//     {"source_idx": 1, "target_idx": 4, "source": "The A-Team", "target": "Alice in Wonderland", "value": 0.4401263842713225}, 
-//     {"source_idx": 2, "target_idx": 3, "source": "A Little Help", "target": "Adventures of Power", "value": 0.5257436095080503}, 
-//     {"source_idx": 2, "target_idx": 4, "source": "A Little Help", "target": "Alice in Wonderland", "value": 0.43601514521144}, 
-//     {"source_idx": 3, "target_idx": 4, "source": "Adventures of Power", "target": "Alice in Wonderland", "value": 0.4389207520427561}]
-// };
 
 const colorMapping = {
-    "action": "#ffc8f0", 
-    "comedy": "#cbf2bd", 
-    "animation": "#afe9ff", 
-    "drama": "#ffb09e", 
-    "biography": "#fff2b4"
+    
+    "action/adventure/thriller" : "#FF0000", 
+    "horror/mystery" : "#A60000", 
+    "drama" : "#E6399B", 
+    "comedy" : "#00CC00", 
+    "biography/documentary" : "#284A7E", 
+    "sciencefiction/fantasy" : "#1240AB",  
+    "romance" : "#A600A6", 
+    "musical" : "#FF9640", 
+    "animation" : "#1240AB", 
+    "family" : "#009999", 
 }
 
 
@@ -163,7 +145,7 @@ node.on('mouseover', function (d, i) {
         
         link
           .style('stroke', function (link_d) { 
-            return link_d.source_idx === d.idx || link_d.target_idx === d.idx ? '#69b3b2' : defaultSrokeColor;})
+            return link_d.source_idx === d.idx || link_d.target_idx === d.idx ? '#FFF373' : defaultSrokeColor;})
           .style('stroke-width', function (link_d) { 
             return link_d.source_idx === d.idx || link_d.target_idx === d.idx ? 4 : defaultStrokeWidth;})
 
@@ -181,7 +163,7 @@ node.on('mouseover', function (d, i) {
         })
             
         svgText.text(d.id);
-        svgDescription.text("Insert description here");
+        svgDescription.text(d.description);
 
     })
     .on('mouseout', function (d, i) {
@@ -209,12 +191,12 @@ node.on('mouseover', function (d, i) {
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-const data = [
-        { "color": 1, "percent": 40 },
-        { "color": 2, "percent": 20 },
-        { "color": 3, "percent": 20 },
-        { "color": 4, "percent": 20 }
-            ]
+// const data = [
+//         { "color": 1, "percent": 40 },
+//         { "color": 2, "percent": 20 },
+//         { "color": 3, "percent": 20 },
+//         { "color": 4, "percent": 20 }
+//             ]
 
 
 function createPieData(d){
