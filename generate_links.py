@@ -103,6 +103,9 @@ def create_node_info(indexes, titles, genre_categories, description):
   
   return nodes
 
+def scale_similarity_value(x, similarity_threshold):
+  return (1/(1-similarity_threshold))*(x-similarity_threshold)
+
 def main(args):
   debug = args['debug']
   if debug:
@@ -141,7 +144,7 @@ def main(args):
           link['target_idx'] = j
           link['source'] = titles[i]
           link['target'] = titles[j]
-          link['value'] = similarity[i][j]
+          link['value'] = scale_similarity_value(similarity[i][j], similarity_threshold)
           links.append(link)
 
   # print(similarity)
