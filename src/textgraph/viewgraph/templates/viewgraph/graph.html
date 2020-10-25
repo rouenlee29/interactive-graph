@@ -20,9 +20,6 @@
 
 </style>
 <svg width="2000" height="1000">
-
-  <!-- <text x="20" y="50" font-family="serif" font-size="30px">Hello!</text> -->
-
 </svg>
 
 
@@ -32,14 +29,14 @@
 <script src="{% static "viewgraph/js/node-pie.js" %}"></script>
 <script>
 
+const textAlignment_x = 50;
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
-
 var svgText = svg.append("text");
 svgText
-  .attr("x",50)
+  .attr("x",textAlignment_x)
   .attr("y",50)
   .attr("font-family", "Georgia");
 
@@ -49,12 +46,15 @@ svgText.text(defaultText);
 const defaultDescription = ""
 var svgDescription = svg.append("text");
 svgDescription
-  .attr("x",50)
+  .attr("x",textAlignment_x)
   .attr("y",70)
   .attr("font-family", "Georgia")
   .attr("font-size", "13px")
   .attr("font-style", "italic");
 svgDescription.text(defaultDescription)
+
+
+
 
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
@@ -68,18 +68,52 @@ var graph = JSON.parse("{{data|escapejs}}");
 
 const colorMapping = {
     
-    "action/adventure/thriller" : "#FF0000", 
-    "horror/mystery" : "#A60000", 
-    "drama" : "#E6399B", 
-    "comedy" : "#00CC00", 
-    "biography/documentary" : "#284A7E", 
-    "sciencefiction/fantasy" : "#1240AB",  
-    "romance" : "#A600A6", 
-    "musical" : "#FF9640", 
-    "animation" : "#1240AB", 
+    "horror/mystery" : "#64503f",
+    "drama" : "#b19cd9", 
+    "romance" : "#ff9fb6",
+    "action/adventure/thriller" : "#ff4c42", 
+    "musical" : "#ffb347", 
+    "comedy" : "#8be28b", 
     "family" : "#009999", 
+    "sciencefiction/fantasy" : "#1240AB",  
+    "animation" : "#7ea4b3", 
+    "biography/documentary" : "#adad9a", 
 }
 
+// add legend for colour mapping
+
+// add legend title
+const legendStart_y = 500;
+// var svgLegend = svg.append("text");
+// svgLegend
+//   .attr("x",textAlignment_x)
+//   .attr("y",legendStart_y)
+//   .attr("font-family", "Georgia")
+//   svgLegend.text("Legend!!!!")
+
+// add dots
+const betweenLegendElements_y = 20;
+svg.selectAll("mydots")
+  .data(Object.keys(colorMapping))
+  .enter()
+  .append("circle")
+    .attr("cx", textAlignment_x)
+    .attr("cy", function(d,i){ return legendStart_y + 25 + i*betweenLegendElements_y}) // 100 is where the first dot appears. 25 is the distance between dots
+    .attr("r", 7)
+    .style("fill", function(d,i){return colorMapping[d]})
+
+// add labels
+svg.selectAll("mylabels")
+  .data(Object.keys(colorMapping))
+  .enter()
+  .append("text")
+    .attr("x", textAlignment_x + 20)
+    .attr("y", function(d,i){ return legendStart_y +30 + i*betweenLegendElements_y}) // 100 is where the first dot appears. 25 is the distance between dots
+    .style("fill", function(d,i){return colorMapping[d]})
+    .text(function(d){ return d})
+    .attr("text-anchor", "left")
+    .attr("font-family", "Georgia")
+    .style("alignment-baseline", "mddle");
 
 const defaultStrokeWidth = 2;
 const defaultSrokeColor = '#b8b8b8';
@@ -92,7 +126,6 @@ var link = svg.append("g")
   .style('stroke', defaultSrokeColor)
   .attr("stroke-width", function(d) { return defaultStrokeWidth; })
   .attr("stroke-opacity", function(d) { return d.value; });
-  // TODO modify stroke opacity  
 
 // add background glow
 var defs = svg.append("defs");
