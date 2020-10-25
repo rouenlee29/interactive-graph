@@ -27,14 +27,16 @@ var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
+
 var svgText = svg.append("text");
 svgText
   .attr("x",textAlignment_x)
   .attr("y",50)
   .attr("font-family", "Georgia");
-
+  
 const defaultText = "Hover over node to view text"
 svgText.text(defaultText);
+
 
 const defaultDescription = ""
 var svgDescription = svg.append("text");
@@ -45,9 +47,6 @@ svgDescription
   .attr("font-size", "13px")
   .attr("font-style", "italic");
 svgDescription.text(defaultDescription)
-
-
-
 
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
@@ -259,6 +258,18 @@ function dragended(d) {
   d.fx = null;
   d.fy = null;
 }
+
+
+
+var textBox = svg.append("rect")
+            .attr("x", textAlignment_x)
+            .attr("y", 0)
+            .attr("width", 200)
+            .attr("height", 1000)
+            .attr('opacity', '.90')
+            .attr("fill", "white");
+
+
 
 // add legend for colour mapping
 
