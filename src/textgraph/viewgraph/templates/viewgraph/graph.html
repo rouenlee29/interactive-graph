@@ -80,40 +80,10 @@ const colorMapping = {
     "biography/documentary" : "#adad9a", 
 }
 
-// add legend for colour mapping
 
-// add legend title
-const legendStart_y = 500;
-// var svgLegend = svg.append("text");
-// svgLegend
-//   .attr("x",textAlignment_x)
-//   .attr("y",legendStart_y)
-//   .attr("font-family", "Georgia")
-//   svgLegend.text("Legend!!!!")
 
-// add dots
-const betweenLegendElements_y = 20;
-svg.selectAll("mydots")
-  .data(Object.keys(colorMapping))
-  .enter()
-  .append("circle")
-    .attr("cx", textAlignment_x)
-    .attr("cy", function(d,i){ return legendStart_y + 25 + i*betweenLegendElements_y}) // 100 is where the first dot appears. 25 is the distance between dots
-    .attr("r", 7)
-    .style("fill", function(d,i){return colorMapping[d]})
+  
 
-// add labels
-svg.selectAll("mylabels")
-  .data(Object.keys(colorMapping))
-  .enter()
-  .append("text")
-    .attr("x", textAlignment_x + 20)
-    .attr("y", function(d,i){ return legendStart_y +30 + i*betweenLegendElements_y}) // 100 is where the first dot appears. 25 is the distance between dots
-    .style("fill", function(d,i){return colorMapping[d]})
-    .text(function(d){ return d})
-    .attr("text-anchor", "left")
-    .attr("font-family", "Georgia")
-    .style("alignment-baseline", "mddle");
 
 const defaultStrokeWidth = 2;
 const defaultSrokeColor = '#b8b8b8';
@@ -224,14 +194,6 @@ node.on('mouseover', function (d, i) {
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-// const data = [
-//         { "color": 1, "percent": 40 },
-//         { "color": 2, "percent": 20 },
-//         { "color": 3, "percent": 20 },
-//         { "color": 4, "percent": 20 }
-//             ]
-
-
 function createPieData(d){
     let pieData = [];
     for (let i = 0; i < d.genre.length; i++){
@@ -255,9 +217,6 @@ node.each(function (d) {
               labelColor: color(1)
           });
       });
-
-
-
 
 var labels = node.append("text")
     .text(function(d) {
@@ -309,6 +268,35 @@ function dragended(d) {
   d.fx = null;
   d.fy = null;
 }
+
+// add legend for colour mapping
+
+// add legend title
+const legendStart_y = 500;
+
+// add dots
+const betweenLegendElements_y = 20;
+svg.selectAll("mydots")
+  .data(Object.keys(colorMapping))
+  .enter()
+  .append("circle")
+    .attr("cx", textAlignment_x)
+    .attr("cy", function(d,i){ return legendStart_y + 25 + i*betweenLegendElements_y}) // 100 is where the first dot appears. 25 is the distance between dots
+    .attr("r", 7)
+    .style("fill", function(d,i){return colorMapping[d]});
+
+// add labels
+svg.selectAll("mylabels")
+  .data(Object.keys(colorMapping))
+  .enter()
+  .append("text")
+    .attr("x", textAlignment_x + 20)
+    .attr("y", function(d,i){ return legendStart_y +30 + i*betweenLegendElements_y}) // 100 is where the first dot appears. 25 is the distance between dots
+    .style("fill", function(d,i){return colorMapping[d]})
+    .text(function(d){ return d})
+    .attr("text-anchor", "left")
+    .attr("font-family", "Georgia")
+    .style("alignment-baseline", "middle");
 
 </script>
 
