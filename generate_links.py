@@ -108,7 +108,7 @@ def scale_similarity_value(x, similarity_threshold):
   c = 1 - (0.5/(1-similarity_threshold))
   scaled = (0.5/(1-similarity_threshold))*x + c
   assert scaled >= similarity_threshold
-  assert scaled <= 1
+  assert int(scaled) <= 1
   return scaled
 
 def main(args):
