@@ -28,25 +28,10 @@ var svg = d3.select("svg"),
     height = +svg.attr("height");
 
 
-var svgText = svg.append("text");
-svgText
-  .attr("x",textAlignment_x)
-  .attr("y",50)
-  .attr("font-family", "Georgia");
-  
-const defaultText = "Hover over node to view text"
-svgText.text(defaultText);
 
 
-const defaultDescription = ""
-var svgDescription = svg.append("text");
-svgDescription
-  .attr("x",textAlignment_x)
-  .attr("y",70)
-  .attr("font-family", "Georgia")
-  .attr("font-size", "13px")
-  .attr("font-style", "italic");
-svgDescription.text(defaultDescription)
+
+
 
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
@@ -259,17 +244,13 @@ function dragended(d) {
   d.fy = null;
 }
 
-
-
 var textBox = svg.append("rect")
             .attr("x", textAlignment_x)
             .attr("y", 0)
-            .attr("width", 200)
+            .attr("width", 250)
             .attr("height", 1000)
             .attr('opacity', '.90')
             .attr("fill", "white");
-
-
 
 // add legend for colour mapping
 
@@ -299,5 +280,23 @@ svg.selectAll("mylabels")
     .attr("text-anchor", "left")
     .attr("font-family", "Georgia")
     .style("alignment-baseline", "middle");
+
+var svgText = svg.append("text");
+svgText
+  .attr("x",textAlignment_x)
+  .attr("y",50)
+  .attr("font-family", "Georgia");
+const defaultText = "Hover over node to view text"
+svgText.text(defaultText);
+
+const defaultDescription = ""
+var svgDescription = svg.append("text");
+svgDescription
+  .attr("x",textAlignment_x)
+  .attr("y",70)
+  .attr("font-family", "Georgia")
+  .attr("font-size", "13px")
+  .attr("font-style", "italic");
+svgDescription.text(defaultDescription)
 
 </script>
