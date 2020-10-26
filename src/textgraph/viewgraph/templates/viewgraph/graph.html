@@ -30,12 +30,7 @@ var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
-    svg.append("foreignObject")
-    .attr("width", 480)
-    .attr("height", 500)
-  .append("xhtml:svg")
-    .style("font", "14px 'Helvetica Neue'")
-    .html("<h1>An HTML Foreign Object in SVG</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu enim quam. Quisque nisi risus, sagittis quis tempor nec, aliquam eget neque. Nulla bibendum semper lorem non ullamcorper. Nulla non ligula lorem. Praesent porttitor, tellus nec suscipit aliquam, enim elit posuere lorem, at laoreet enim ligula sed tortor. Ut sodales, urna a aliquam semper, nibh diam gravida sapien, sit amet fermentum purus lacus eget massa. Donec ac arcu vel magna consequat pretium et vel ligula. Donec sit amet erat elit. Vivamus eu metus eget est hendrerit rutrum. Curabitur vitae orci et leo interdum egestas ut sit amet dui. In varius enim ut sem posuere in tristique metus ultrices.<p>Integer mollis massa at orci porta vestibulum. Pellentesque dignissim turpis ut tortor ultricies condimentum et quis nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod lorem vulputate dui pharetra luctus. Sed vulputate, nunc quis porttitor scelerisque, dui est varius ipsum, eu blandit mauris nibh pellentesque tortor. Vivamus ultricies ante eget ipsum pulvinar ac tempor turpis mollis. Morbi tortor orci, euismod vel sagittis ac, lobortis nec est. Quisque euismod venenatis felis at dapibus. Vestibulum dignissim nulla ut nisi tristique porttitor. Proin et nunc id arcu cursus dapibus non quis libero. Nunc ligula mi, bibendum non mattis nec, luctus id neque. Suspendisse ut eros lacus. Praesent eget lacus eget risus congue vestibulum. Morbi tincidunt pulvinar lacus sed faucibus. Phasellus sed vestibulum sapien.");
+    
 
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
@@ -163,6 +158,8 @@ node.on('mouseover', function (d, i) {
         svgText.text(defaultText);
         svgDescription.text(defaultDescription);
 
+        // svgDescription2.html("<h1>hey you changed me!!!!</h1>")
+
         simulation.restart();
     })
   .call(d3.drag()
@@ -248,11 +245,14 @@ function dragended(d) {
   d.fy = null;
 }
 
+// add text box
+const textBoxWidth = 250;
+const textBoxHeight = 1000;
 var textBox = svg.append("rect")
             .attr("x", textAlignment_x)
             .attr("y", 0)
-            .attr("width", 250)
-            .attr("height", 1000)
+            .attr("width", textBoxWidth)
+            .attr("height", textBoxHeight)
             .attr('opacity', '.90')
             .attr("fill", "white");
 
@@ -295,7 +295,6 @@ svgText.text(defaultText);
 
 const defaultDescription = ""
 var svgDescription = svg.append("text");
-
 svgDescription
   .attr("x",textAlignment_x)
   .attr("y",70)
@@ -304,10 +303,17 @@ svgDescription
   .attr("font-style", "italic");  
 svgDescription.text(defaultDescription);
 
-var div = d3.select("svg").append("div")
-                    .html("FIRST LINE <br> SECOND LINE")
-                    .attr("x",textAlignment_x)
-                    .attr("y",100);
+var svgDescription2 = svg.append("foreignObject")
+    .attr("x",textAlignment_x)
+    .attr("y",70)
+    .attr("width", textBoxWidth)
+    .attr("height", 300)
+    .append("xhtml:svg")
+    .style("font", "13px 'Georgia Neue'")
+    .style("font-style", "italic")
+    .text(defaultDescription)
+    ;
+    // .html("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu enim quam. Quisque nisi risus, sagittis quis tempor nec, aliquam eget neque. Nulla bibendum semper lorem non ullamcorper. Nulla non ligula lorem. Praesent porttitor, tellus nec suscipit aliquam, enim elit posuere lorem, at laoreet enim ligula sed tortor. Ut sodales, urna a aliquam semper, nibh diam gravida sapien, sit amet fermentum purus lacus eget massa. Donec ac arcu vel magna consequat pretium et vel ligula. Donec sit amet erat elit. Vivamus eu metus eget est hendrerit rutrum. Curabitur vitae orci et leo interdum egestas ut sit amet dui. In varius enim ut sem posuere in tristique metus ultrices.<p>Integer mollis massa at orci porta vestibulum. Pellentesque dignissim turpis ut tortor ultricies condimentum et quis nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod lorem vulputate dui pharetra luctus. Sed vulputate, nunc quis porttitor scelerisque, dui est varius ipsum, eu blandit mauris nibh pellentesque tortor. Vivamus ultricies ante eget ipsum pulvinar ac tempor turpis mollis. Morbi tortor orci, euismod vel sagittis ac, lobortis nec est. Quisque euismod venenatis felis at dapibus. Vestibulum dignissim nulla ut nisi tristique porttitor. Proin et nunc id arcu cursus dapibus non quis libero. Nunc ligula mi, bibendum non mattis nec, luctus id neque. Suspendisse ut eros lacus. Praesent eget lacus eget risus congue vestibulum. Morbi tincidunt pulvinar lacus sed faucibus. Phasellus sed vestibulum sapien.");
                     
 
 </script>
