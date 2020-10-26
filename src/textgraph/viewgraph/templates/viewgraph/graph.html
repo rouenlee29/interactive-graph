@@ -138,7 +138,7 @@ node.on('mouseover', function (d, i) {
         })
             
         svgText.text(d.id);
-        svgDescription.text(d.description);
+        svgDescription.html(d.description);
 
     })
     .on('mouseout', function (d, i) {
@@ -156,7 +156,8 @@ node.on('mouseover', function (d, i) {
 
         //d3.select('#tools').remove();
         svgText.text(defaultText);
-        svgDescription.text(defaultDescription);
+        // svgDescription.text(defaultDescription);
+        svgDescription.html(defaultDescription);
 
         // svgDescription2.html("<h1>hey you changed me!!!!</h1>")
 
@@ -294,16 +295,16 @@ const defaultText = "Hover over node to view text"
 svgText.text(defaultText);
 
 const defaultDescription = ""
-var svgDescription = svg.append("text");
-svgDescription
-  .attr("x",textAlignment_x)
-  .attr("y",70)
-  .attr("font-family", "Georgia")
-  .attr("font-size", "13px")
-  .attr("font-style", "italic");  
-svgDescription.text(defaultDescription);
+// var svgDescription = svg.append("text");
+// svgDescription
+//   .attr("x",textAlignment_x)
+//   .attr("y",70)
+//   .attr("font-family", "Georgia")
+//   .attr("font-size", "13px")
+//   .attr("font-style", "italic");  
+// svgDescription.text(defaultDescription);
 
-var svgDescription2 = svg.append("foreignObject")
+var svgDescription = svg.append("foreignObject")
     .attr("x",textAlignment_x)
     .attr("y",70)
     .attr("width", textBoxWidth)
