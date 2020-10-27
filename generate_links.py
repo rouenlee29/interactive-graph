@@ -94,13 +94,20 @@ def get_indexes(links):
       indexes.append(link['target_idx'])
   return indexes
 
+def shorten_plot(plots, num_sentences=3):
+  short_plots = []
+  for p in plots:
+    sentences = p.split(".")
+    short_plots.append(". ".join(sentences[:num_sentences]) + "...") 
+
+  return short_plots
+
 def create_node_info(indexes, titles, genre_categories, description):
   # get genre value for all movies
   nodes = []
 
   for i in indexes:
-    short_description = description[i][:175] + '...'
-    nodes.append({"idx" : i,"id": titles[i], "genre": genre_categories[i], "description" : short_description})
+    nodes.append({"idx" : i,"id": titles[i], "genre": genre_categories[i], "description" : description})
   
   return nodes
 
@@ -152,17 +159,13 @@ def main(args):
           link['value'] = scale_similarity_value(similarity[i][j], similarity_threshold)
           links.append(link)
 
-  # print(similarity)
   indexes = get_indexes(links)
+
+  short_plots = shorten_plot(plots)
   
-  
-  #indexes = [1,2,3,4,5]
   nodes = create_node_info(indexes, titles = df['Title'].values, 
                             genre_categories = df['genre_category'].values,
-                          description = df['Plot'].values)
-  
-
-  # write to json file
+                          description = short_plots)
   
   print(f'Number of links: {len(links)}')
   print(f'Number of nodes: {len(nodes)}')
