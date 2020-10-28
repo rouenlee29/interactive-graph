@@ -107,7 +107,7 @@ def create_node_info(indexes, titles, genre_categories, description):
   nodes = []
 
   for i in indexes:
-    nodes.append({"idx" : i,"id": titles[i], "genre": genre_categories[i], "description" : description})
+    nodes.append({"idx" : i,"id": titles[i], "genre": genre_categories[i], "description" : description[i]})
   
   return nodes
 
@@ -161,7 +161,7 @@ def main(args):
 
   indexes = get_indexes(links)
 
-  short_plots = shorten_plot(plots)
+  short_plots = shorten_plot(corpus)
   
   nodes = create_node_info(indexes, titles = df['Title'].values, 
                             genre_categories = df['genre_category'].values,
