@@ -13,9 +13,12 @@
 }
 
 </style>
-<!-- <svg width="2000" height="1000">
-</svg> -->
 
+
+
+
+<body>
+  
 <svg width="2000" height="1000">
   
 </svg>
@@ -56,6 +59,27 @@ const colorMapping = {
     "biography/documentary" : "#adad9a", 
 }
 
+let defaultCheckBoxesContent = `
+    <form action="/action_page.php" method="get">
+    <input type="checkbox" name="movie0" value=0>
+    <label for="movie0">127 Hours</label><br>
+    
+    <input type="checkbox" name="movie1" value=1>
+    <label for="movie1">A Little Help</label><br>
+    
+    <input type="checkbox" name="movie2" value=2>
+    <label for="movie2">Adventures of Power</label><br>
+    
+    <input type="checkbox" name="movie3" value=3>
+    <label for="movie3">Alice in Wonderland</label><br>
+
+    <input type="checkbox" name="movie4" value=4>
+    <label for="movie4">Do not choose</label><br>
+    <br>
+    <input type="submit" value="Submit">
+
+    </form>
+    `
 
 const defaultStrokeWidth = 2;
 const defaultSrokeColor = '#b8b8b8';
@@ -114,6 +138,8 @@ var node = svg.append("g")
 
 // node.style("filter","url(#glow)");
 node.on('mouseover', function (d, i) {
+        simulation.stop()
+        checkBoxes.html("");
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '.50');
@@ -142,7 +168,7 @@ node.on('mouseover', function (d, i) {
 
     })
     .on('mouseout', function (d, i) {
-      
+        checkBoxes.html(defaultCheckBoxesContent);
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '1');
@@ -161,6 +187,7 @@ node.on('mouseover', function (d, i) {
 
         // svgDescription2.html("<h1>hey you changed me!!!!</h1>")
 
+        simulation.alpha(1);
         simulation.restart();
     })
   .call(d3.drag()
@@ -260,7 +287,7 @@ var textBox = svg.append("rect")
 // add legend for colour mapping
 
 // add legend title
-const legendStart_y = 500;
+const legendStart_y = 700;
 
 // add dots
 const betweenLegendElements_y = 20;
@@ -270,7 +297,7 @@ svg.selectAll("mydots")
   .append("circle")
     .attr("cx", textAlignment_x)
     .attr("cy", function(d,i){ return legendStart_y + 25 + i*betweenLegendElements_y}) 
-    .attr("r", 7)
+    .attr("r", 5)
     .style("fill", function(d,i){return colorMapping[d]});
 
 // add labels
@@ -284,6 +311,7 @@ svg.selectAll("mylabels")
     .text(function(d){ return d})
     .attr("text-anchor", "left")
     .attr("font-family", "Georgia")
+    .attr("font-size", "15px")
     .style("alignment-baseline", "middle");
 
 var svgText = svg.append("text");
@@ -295,18 +323,11 @@ const defaultText = "Hover over node to view text"
 svgText.text(defaultText);
 
 const defaultDescription = ""
-// var svgDescription = svg.append("text");
-// svgDescription
-//   .attr("x",textAlignment_x)
-//   .attr("y",70)
-//   .attr("font-family", "Georgia")
-//   .attr("font-size", "13px")
-//   .attr("font-style", "italic");  
-// svgDescription.text(defaultDescription);
 
+const descriptionTextStart = 70;
 var svgDescription = svg.append("foreignObject")
     .attr("x",textAlignment_x)
-    .attr("y",70)
+    .attr("y",descriptionTextStart)
     .attr("width", textBoxWidth)
     .attr("height", 300)
     .append("xhtml:svg")
@@ -314,7 +335,30 @@ var svgDescription = svg.append("foreignObject")
     .style("font-style", "italic")
     .text(defaultDescription)
     ;
-    // .html("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu enim quam. Quisque nisi risus, sagittis quis tempor nec, aliquam eget neque. Nulla bibendum semper lorem non ullamcorper. Nulla non ligula lorem. Praesent porttitor, tellus nec suscipit aliquam, enim elit posuere lorem, at laoreet enim ligula sed tortor. Ut sodales, urna a aliquam semper, nibh diam gravida sapien, sit amet fermentum purus lacus eget massa. Donec ac arcu vel magna consequat pretium et vel ligula. Donec sit amet erat elit. Vivamus eu metus eget est hendrerit rutrum. Curabitur vitae orci et leo interdum egestas ut sit amet dui. In varius enim ut sem posuere in tristique metus ultrices.<p>Integer mollis massa at orci porta vestibulum. Pellentesque dignissim turpis ut tortor ultricies condimentum et quis nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod lorem vulputate dui pharetra luctus. Sed vulputate, nunc quis porttitor scelerisque, dui est varius ipsum, eu blandit mauris nibh pellentesque tortor. Vivamus ultricies ante eget ipsum pulvinar ac tempor turpis mollis. Morbi tortor orci, euismod vel sagittis ac, lobortis nec est. Quisque euismod venenatis felis at dapibus. Vestibulum dignissim nulla ut nisi tristique porttitor. Proin et nunc id arcu cursus dapibus non quis libero. Nunc ligula mi, bibendum non mattis nec, luctus id neque. Suspendisse ut eros lacus. Praesent eget lacus eget risus congue vestibulum. Morbi tincidunt pulvinar lacus sed faucibus. Phasellus sed vestibulum sapien.");
-                    
+    // .html("Lorem ipsum dolor sit  amet, consectetur adipiscing elit. Donec eu enim quam. Quisque nisi risus, sagittis quis tempor nec, aliquam eget neque. Nulla bibendum semper lorem non ullamcorper. Nulla non ligula lorem. Praesent porttitor, tellus nec suscipit aliquam, enim elit posuere lorem, at laoreet enim ligula sed tortor. Ut sodales, urna a aliquam semper, nibh diam gravida sapien, sit amet fermentum purus lacus eget massa. Donec ac arcu vel magna consequat pretium et vel ligula. Donec sit amet erat elit. Vivamus eu metus eget est hendrerit rutrum. Curabitur vitae orci et leo interdum egestas ut sit amet dui. In varius enim ut sem posuere in tristique metus ultrices.<p>Integer mollis massa at orci porta vestibulum. Pellentesque dignissim turpis ut tortor ultricies condimentum et quis nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod lorem vulputate dui pharetra luctus. Sed vulputate, nunc quis porttitor scelerisque, dui est varius ipsum, eu blandit mauris nibh pellentesque tortor. Vivamus ultricies ante eget ipsum pulvinar ac tempor turpis mollis. Morbi tortor orci, euismod vel sagittis ac, lobortis nec est. Quisque euismod venenatis felis at dapibus. Vestibulum dignissim nulla ut nisi tristique porttitor. Proin et nunc id arcu cursus dapibus non quis libero. Nunc ligula mi, bibendum non mattis nec, luctus id neque. Suspendisse ut eros lacus. Praesent eget lacus eget risus congue vestibulum. Morbi tincidunt pulvinar lacus sed faucibus. Phasellus sed vestibulum sapien.");
+
+  
+  var checkBoxes = svg.append("foreignObject")
+    .attr("x",textAlignment_x)
+    .attr("y",descriptionTextStart)
+    .attr("width", textBoxWidth)
+    .attr("height", 300)
+    .append("xhtml:svg")
+    .style("font", "13px 'Georgia Neue'")
+    .style("font-style", "italic")
+    .html(defaultCheckBoxesContent);
+  // d3.select("useInput").attr("visibility", "hidden")
+
+
+    
+
+console.log("{{foo}}");
+          
+
 
 </script>
+
+</body>
+
+
+

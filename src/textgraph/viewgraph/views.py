@@ -13,7 +13,7 @@ def landing_page(request):
         data = json.loads(data_file.read())
     #print(dataJSON)
     dataJSON = json.dumps(data)
-    return render(request,'viewgraph/graph.html', {'data': dataJSON})
+    return render(request,'viewgraph/graph.html', {'data': dataJSON,  'foo' : "hello"})
 
 
 def second_index(request):
