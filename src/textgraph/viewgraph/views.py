@@ -55,6 +55,7 @@ def compile_json_object(chosen_movie_idx):
 
     
     for i in movie_idx:
+        # TODO select nodes with correct idx
         chosen_nodes.append(nodes[i])
 
 

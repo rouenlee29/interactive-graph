@@ -135,11 +135,14 @@ var node = svg.append("g")
   .data(graph.nodes)
   .enter().append("g");
 
-
-// node.style("filter","url(#glow)");
 node.on('mouseover', function (d, i) {
         simulation.stop()
+        
+        // make check boxes disappear, and legend appear
         checkBoxes.html("");
+        legendLabels.attr("visibility", "visible")
+        legendDots.attr("visibility", "visible")
+
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '.50');
@@ -168,7 +171,11 @@ node.on('mouseover', function (d, i) {
 
     })
     .on('mouseout', function (d, i) {
+        // make check boxes appear, and legend disappear
         checkBoxes.html(defaultCheckBoxesContent);
+        legendLabels.attr("visibility", "hidden")
+        legendDots.attr("visibility", "hidden")
+
         d3.select(this).transition()
               .duration('50')
               .attr('opacity', '1');
@@ -284,24 +291,23 @@ var textBox = svg.append("rect")
             .attr('opacity', '.90')
             .attr("fill", "white");
 
-// add legend for colour mapping
-
 // add legend title
-const legendStart_y = 700;
+const legendStart_y = 400;
 
-// add dots
+// add dots in legend
 const betweenLegendElements_y = 20;
-svg.selectAll("mydots")
+var legendDots = svg.selectAll("mydots")
   .data(Object.keys(colorMapping))
   .enter()
   .append("circle")
     .attr("cx", textAlignment_x)
     .attr("cy", function(d,i){ return legendStart_y + 25 + i*betweenLegendElements_y}) 
     .attr("r", 5)
-    .style("fill", function(d,i){return colorMapping[d]});
+    .style("fill", function(d,i){return colorMapping[d]})
+    .attr("visibility", "hidden");
 
 // add labels
-svg.selectAll("mylabels")
+var legendLabels = svg.selectAll("mylabels")
   .data(Object.keys(colorMapping))
   .enter()
   .append("text")
@@ -312,14 +318,17 @@ svg.selectAll("mylabels")
     .attr("text-anchor", "left")
     .attr("font-family", "Georgia")
     .attr("font-size", "15px")
-    .style("alignment-baseline", "middle");
+    .style("alignment-baseline", "middle")
+    .attr("visibility", "hidden");
+    
 
+// Instructions for user
 var svgText = svg.append("text");
 svgText
   .attr("x",textAlignment_x)
   .attr("y",50)
   .attr("font-family", "Georgia");
-const defaultText = "Hover over node to view text"
+const defaultText = "Hover over node to view movie description"
 svgText.text(defaultText);
 
 const defaultDescription = ""
@@ -347,14 +356,6 @@ var svgDescription = svg.append("foreignObject")
     .style("font", "13px 'Georgia Neue'")
     .style("font-style", "italic")
     .html(defaultCheckBoxesContent);
-  // d3.select("useInput").attr("visibility", "hidden")
-
-
-    
-
-console.log("{{foo}}");
-          
-
 
 </script>
 
