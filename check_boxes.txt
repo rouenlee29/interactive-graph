@@ -1,0 +1,19 @@
+<form action="/selection" method="get">
+    <input type="checkbox" name="movie0" value=0>
+    <label for="movie0">127 Hours</label><br>
+    
+    <input type="checkbox" name="movie1" value=1>
+    <label for="movie1">A Little Help</label><br>
+    
+    <input type="checkbox" name="movie2" value=2>
+    <label for="movie2">Adventures of Power</label><br>
+    
+    <input type="checkbox" name="movie3" value=3>
+    <label for="movie3">Alice in Wonderland</label><br>
+
+    <input type="checkbox" name="movie4" value=4>
+    <label for="movie4">Do not choose</label><br>
+    <br>
+    <input type="submit" value="Submit">
+
+</form>

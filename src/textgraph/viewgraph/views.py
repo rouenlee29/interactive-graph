@@ -3,17 +3,18 @@ from django.http import HttpResponse
 import json
 
 def index(request):
-    
     context = {'name' : "Rowen"}
     return render(request, 'viewgraph/index.html', context)
 
 def landing_page(request):
-    with open('C:/Users/leero/Projects/text-graph/data.json', encoding='utf-8') as data_file:
-     
+    with open('C:/Users/leero/Projects/text-graph/data-v0.1.json', encoding='utf-8') as data_file:
         data = json.loads(data_file.read())
-    #print(dataJSON)
+    
+    check_boxes_file = open('C:/Users/leero/Projects/text-graph/check_boxes.txt', 'r')
+    check_boxes_html = check_boxes_file.read()
+
     dataJSON = json.dumps(data)
-    return render(request,'viewgraph/graph.html', {'data': dataJSON,  'foo' : "hello"})
+    return render(request,'viewgraph/graph.html', {'data': dataJSON, 'check_boxes_html' : check_boxes_html})
 
 
 def second_index(request):

@@ -14,9 +14,6 @@
 
 </style>
 
-
-
-
 <body>
   
 <svg width="2000" height="1000">
@@ -32,8 +29,6 @@ const textAlignment_x = 50;
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
-
-    
 
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
@@ -59,27 +54,9 @@ const colorMapping = {
     "biography/documentary" : "#adad9a", 
 }
 
-let defaultCheckBoxesContent = `
-    <form action="/selection" method="get">
-    <input type="checkbox" name="movie0" value=0>
-    <label for="movie0">127 Hours</label><br>
-    
-    <input type="checkbox" name="movie1" value=1>
-    <label for="movie1">A Little Help</label><br>
-    
-    <input type="checkbox" name="movie2" value=2>
-    <label for="movie2">Adventures of Power</label><br>
-    
-    <input type="checkbox" name="movie3" value=3>
-    <label for="movie3">Alice in Wonderland</label><br>
+let defaultCheckBoxesContent = "{{ check_boxes_html|escapejs }}";
 
-    <input type="checkbox" name="movie4" value=4>
-    <label for="movie4">Do not choose</label><br>
-    <br>
-    <input type="submit" value="Submit">
-
-    </form>
-    `
+console.log(`"{{ check_boxes_html|escapejs }}"`);
 
 const defaultStrokeWidth = 2;
 const defaultSrokeColor = '#b8b8b8';
