@@ -3,6 +3,10 @@
 <meta charset="utf-8">
 <style>
 
+:root {
+  --x-offset:60px;
+}
+
 .links line {
   stroke: rgb(15, 15, 15);
 }
@@ -12,23 +16,118 @@
   stroke-width: 1.5px;
 }
 
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    vertical-align: top;
+    overflow: hidden;
+    z-index: -1;
+}
+.svg-content {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.overlay {
+  /* display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+    vertical-align: top;
+    overflow: hidden; */
+    position: absolute;
+    top: 5px;
+    left: var(--x-offset);
+}
+
+
 </style>
 
 <body>
+<div id="container" class="svg-container">
+    
+    
+    <svg></svg>
+    
+    
+</div>
+
+<div class = "overlay">
+    <h1>Helllllllllllllllloooooooooooooooo</h1>
+    <form action="/selection" method="get">
+      <input type="checkbox" name="movie4" value=4>
+      <label for="movie4">Alice in Wonderland</label><br>
+      
+      <input type="checkbox" name="movie12" value=12>
+      <label for="movie12">Black Swan</label><br>
+
+      <input type="checkbox" name="movie557" value=557>
+      <label for="movie557">The Oranges</label><br>
+      
+      <input type="checkbox" name="movie15" value=15>
+      <label for="movie15">The Bounty Hunter</label><br>
+
+      <input type="checkbox" name="movie1070" value=1070>
+      <label for="movie1070">The Skeleton Twins</label><br>
+
+      <input type="checkbox" name="movie22" value=22>
+      <label for="movie22">Charlie St. Cloud</label><br>
+
+      <input type="checkbox" name="movie564" value=564>
+      <label for="movie564">The Perks of Being a Wallflower</label><br>
+
+      <input type="checkbox" name="movie25" value=25>
+      <label for="movie25">Clash of the Titans</label><br>
+
+      <input type="checkbox" name="movie39" value=39>
+      <label for="movie39">Despicable Me</label><br>
+
+      <input type="checkbox" name="movie41" value=41>
+      <label for="movie41">Diary of a Wimpy Kid</label><br>
+
+      <input type="checkbox" name="movie106" value=106>
+      <label for="movie106">Little Fockers</label><br>
+
+      <input type="checkbox" name="movie43" value=43>
+      <label for="movie43">Dirty Girl</label><br>
+      
+      <input type="checkbox" name="movie47" value=47>
+      <label for="movie47">The Twilight Saga</label><br>
+      <br>
+      <input type="submit" value="Submit">  
+    </form>
+</div>
+
   
-<svg width="1800" height="1000">
-  
-</svg>
+<!-- <svg width="1800" height="1000"> -->
+
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 {% load static %}
 <script src="{% static "viewgraph/js/node-pie.js" %}"></script>
 <script>
 
-const textAlignment_x = 50;
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+var style = getComputedStyle(document.body);
+const textAlignment_x = parseInt(style.getPropertyValue('--x-offset'), 10);
+
+
+const viewBox_x = "1800";
+const viewBox_y = "900";
+var svg = d3.select("div#container")
+  .append("svg")
+  .attr("preserveAspectRatio", "xMinYMin meet")
+  .attr("viewBox", `0 0 ${viewBox_x} ${viewBox_y}`)
+  .classed("svg-content", true);
+// var svg = d3.select("svg"),
+    // width = +svg.attr("width"),
+    // height = +svg.attr("height");
+    width = parseInt(viewBox_x,10);
+    height = parseInt(viewBox_y,10);
+    
+
 
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
@@ -112,11 +211,12 @@ var node = svg.append("g")
   .data(graph.nodes)
   .enter().append("g");
 
+defaultInstructions = ""
 node.on('mouseover', function (d, i) {
         simulation.stop()
         
         // make check boxes disappear, and legend appear
-        checkBoxes.html("");
+        // checkBoxes.html("");
         legendLabels.attr("visibility", "visible")
         legendDots.attr("visibility", "visible")
 
@@ -149,7 +249,7 @@ node.on('mouseover', function (d, i) {
     })
     .on('mouseout', function (d, i) {
         // make check boxes appear, and legend disappear
-        checkBoxes.html(defaultCheckBoxesContent);
+        // checkBoxes.html(defaultCheckBoxesContent);
         legendLabels.attr("visibility", "hidden")
         legendDots.attr("visibility", "hidden")
 
@@ -165,7 +265,7 @@ node.on('mouseover', function (d, i) {
         node.style('filter','none');
 
         //d3.select('#tools').remove();
-        svgText.text(defaultText);
+        svgText.text(defaultInstructions);
         // svgDescription.text(defaultDescription);
         svgDescription.html(defaultDescription);
 
@@ -258,8 +358,8 @@ function dragended(d) {
 }
 
 // add text box
-const textBoxWidth = 250;
-const textBoxHeight = 1000;
+const textBoxWidth = 280;
+const textBoxHeight = viewBox_y;
 const textBoxOpacity = '.90'
 function generateTextBox(x){
   var textBox = svg.append("rect")
@@ -276,6 +376,9 @@ if ("{{ show_all_checkboxes|escapejs }}"){
   for (i = 1; i < 6; i++){
     generateTextBox(textAlignment_x + (textBoxWidth) * i);
   }
+  const defaultInstructions = ""
+} else {
+  const defaultInstructions = "Hover over node to view movie description"
 }
 
 // add legend title
@@ -315,8 +418,8 @@ svgText
   .attr("x",textAlignment_x)
   .attr("y",50)
   .attr("font-family", "Georgia");
-const defaultText = "Hover over node to view movie description"
-svgText.text(defaultText);
+
+svgText.text(defaultInstructions);
 
 const defaultDescription = ""
 
@@ -333,16 +436,28 @@ var svgDescription = svg.append("foreignObject")
     ;
     // .html("Lorem ipsum dolor sit  amet, consectetur adipiscing elit. Donec eu enim quam. Quisque nisi risus, sagittis quis tempor nec, aliquam eget neque. Nulla bibendum semper lorem non ullamcorper. Nulla non ligula lorem. Praesent porttitor, tellus nec suscipit aliquam, enim elit posuere lorem, at laoreet enim ligula sed tortor. Ut sodales, urna a aliquam semper, nibh diam gravida sapien, sit amet fermentum purus lacus eget massa. Donec ac arcu vel magna consequat pretium et vel ligula. Donec sit amet erat elit. Vivamus eu metus eget est hendrerit rutrum. Curabitur vitae orci et leo interdum egestas ut sit amet dui. In varius enim ut sem posuere in tristique metus ultrices.<p>Integer mollis massa at orci porta vestibulum. Pellentesque dignissim turpis ut tortor ultricies condimentum et quis nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod lorem vulputate dui pharetra luctus. Sed vulputate, nunc quis porttitor scelerisque, dui est varius ipsum, eu blandit mauris nibh pellentesque tortor. Vivamus ultricies ante eget ipsum pulvinar ac tempor turpis mollis. Morbi tortor orci, euismod vel sagittis ac, lobortis nec est. Quisque euismod venenatis felis at dapibus. Vestibulum dignissim nulla ut nisi tristique porttitor. Proin et nunc id arcu cursus dapibus non quis libero. Nunc ligula mi, bibendum non mattis nec, luctus id neque. Suspendisse ut eros lacus. Praesent eget lacus eget risus congue vestibulum. Morbi tincidunt pulvinar lacus sed faucibus. Phasellus sed vestibulum sapien.");
 
-  
+function generateCheckBoxes(x, html){
   var checkBoxes = svg.append("foreignObject")
-    .attr("x",textAlignment_x)
+    .attr("x",x)
     .attr("y",descriptionTextStart)
     .attr("width", textBoxWidth)
     .attr("height", 900)
     .append("xhtml:svg")
     .style("font", "13px 'Georgia Neue'")
     .style("font-style", "italic")
-    .html(defaultCheckBoxesContent);
+    .html(html)
+}
+
+// generateCheckBoxes(textAlignment_x, `<form action="/selection" method="get">
+//     <input type="checkbox" name="movie0" value=0>
+//     <label for="movie0">127 Hours</label><br>`);
+  
+// generateCheckBoxes(textAlignment_x + textBoxWidth, `<input type="checkbox" name="movie4" value=4>
+//     <label for="movie4">Do not choose</label><br>
+//     <br>
+//     <input type="submit" value="Submit">
+
+//     </form>`);
 
 
 
