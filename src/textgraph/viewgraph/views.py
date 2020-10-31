@@ -13,13 +13,13 @@ def get_all_movies(request):
         data = json.loads(data_file.read())
 
     dataJSON = json.dumps(data)
-    return render_landing_page(request, dataJSON)
+    return render_graphs(request, dataJSON, True)
 
-def render_landing_page(request, dataJSON):
+def render_graphs(request, dataJSON, show_all_checkboxes):
     check_boxes_file = open('C:/Users/leero/Projects/text-graph/check_boxes.txt', 'r')
     check_boxes_html = check_boxes_file.read()
 
-    return render(request,'viewgraph/graph.html', {'data': dataJSON, 'check_boxes_html' : check_boxes_html})
+    return render(request,'viewgraph/graph.html', {'data': dataJSON, 'check_boxes_html' : check_boxes_html, 'show_all_checkboxes' : show_all_checkboxes})
 
 def second_index(request):
     return HttpResponse("Hello, world. You're at the second index.")
@@ -39,7 +39,7 @@ def process_user_input(request):
     user_data = compile_json_object(user_choices)
     dataJSON = json.dumps(user_data)
     
-    return render_landing_page(request, dataJSON)
+    return render_graphs(request, dataJSON)
 
 def compile_json_object(chosen_movie_idx):
     with open(input_json, encoding='utf-8') as data_file:

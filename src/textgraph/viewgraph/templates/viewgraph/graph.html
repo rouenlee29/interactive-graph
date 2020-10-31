@@ -16,7 +16,7 @@
 
 <body>
   
-<svg width="2000" height="1000">
+<svg width="1800" height="1000">
   
 </svg>
 
@@ -56,7 +56,7 @@ const colorMapping = {
 
 let defaultCheckBoxesContent = "{{ check_boxes_html|escapejs }}";
 
-console.log(`"{{ check_boxes_html|escapejs }}"`);
+
 
 const defaultStrokeWidth = 2;
 const defaultSrokeColor = '#b8b8b8';
@@ -260,13 +260,23 @@ function dragended(d) {
 // add text box
 const textBoxWidth = 250;
 const textBoxHeight = 1000;
-var textBox = svg.append("rect")
-            .attr("x", textAlignment_x)
+const textBoxOpacity = '.90'
+function generateTextBox(x){
+  var textBox = svg.append("rect")
+            .attr("x", x)
             .attr("y", 0)
             .attr("width", textBoxWidth)
             .attr("height", textBoxHeight)
-            .attr('opacity', '.90')
+            .attr('opacity', textBoxOpacity)
             .attr("fill", "white");
+}
+generateTextBox(textAlignment_x);
+
+if ("{{ show_all_checkboxes|escapejs }}"){
+  for (i = 1; i < 6; i++){
+    generateTextBox(textAlignment_x + (textBoxWidth) * i);
+  }
+}
 
 // add legend title
 const legendStart_y = 400;
@@ -328,11 +338,13 @@ var svgDescription = svg.append("foreignObject")
     .attr("x",textAlignment_x)
     .attr("y",descriptionTextStart)
     .attr("width", textBoxWidth)
-    .attr("height", 300)
+    .attr("height", 900)
     .append("xhtml:svg")
     .style("font", "13px 'Georgia Neue'")
     .style("font-style", "italic")
     .html(defaultCheckBoxesContent);
+
+
 
 </script>
 
