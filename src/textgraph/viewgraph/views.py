@@ -2,24 +2,28 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import json
 
-input_json = 'C:/Users/leero/Projects/text-graph/data-v0.1.json'
+all_movies_json_path = 'C:/Users/leero/Projects/text-graph/data-v0.1.json'
 
 def index(request):
     context = {'name' : "Rowen"}
     return render(request, 'viewgraph/index.html', context)
 
-def get_all_movies(request):
-    with open(input_json, encoding='utf-8') as data_file:
+def load_all_movies_in_json(all_movies_json_path):
+    with open(all_movies_json_path, encoding='utf-8') as data_file:
         data = json.loads(data_file.read())
 
-    dataJSON = json.dumps(data)
-    return render_graphs(request, dataJSON, True)
+    data_json = json.dumps(data)
+    
+    return data_json
 
-def render_graphs(request, dataJSON, show_all_checkboxes):
-    check_boxes_file = open('C:/Users/leero/Projects/text-graph/check_boxes.txt', 'r')
-    check_boxes_html = check_boxes_file.read()
+def landing_page(request):
+    data_json = load_all_movies_in_json(all_movies_json_path)
+    
+    return render_graphs(request, data_json, True)
 
-    return render(request,'viewgraph/graph.html', {'data': dataJSON, 'check_boxes_html' : check_boxes_html, 'show_all_checkboxes' : show_all_checkboxes})
+def render_graphs(request, data_json, show_all_checkboxes):
+
+    return render(request,'viewgraph/graph.html', {'data': data_json, 'show_all_checkboxes' : show_all_checkboxes})
 
 def second_index(request):
     return HttpResponse("Hello, world. You're at the second index.")
@@ -28,21 +32,26 @@ def process_user_input(request):
     """
     return graphs containing only the requested movies 
     """
-    user_choices = []
-    I = 4
-    # I is the maximum number of idx
-    for i in range(I):
-        query = request.GET.get(f'movie{str(i)}')
-        if query is not None:
-            user_choices.append(int(query))
+    print("===================================================================")
+    print(dict(request.GET))
+    print("===================================================================")
     
-    user_data = compile_json_object(user_choices)
-    dataJSON = json.dumps(user_data)
+    selection = dict(request.GET)
     
-    return render_graphs(request, dataJSON)
+    
+    user_choices = [int(selection[s][0]) for s in selection]
+    
+    if 9999 in user_choices:
+        # load all movies 
+        data_json = load_all_movies_in_json(all_movies_json_path)
+    else:
+        user_data = compile_json_object(user_choices)
+        data_json = json.dumps(user_data)
+    
+    return render_graphs(request, data_json, 'show_all_checkboxes' : False})
 
 def compile_json_object(chosen_movie_idx):
-    with open(input_json, encoding='utf-8') as data_file:
+    with open(all_movies_json_path, encoding='utf-8') as data_file:
         data = json.loads(data_file.read())
     
     movie_idx = []
