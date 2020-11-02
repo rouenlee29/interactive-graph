@@ -21,9 +21,9 @@ def landing_page(request):
     
     return render_graphs(request, data_json, True)
 
-def render_graphs(request, data_json, show_all_checkboxes):
+def render_graphs(request, data_json, landing_page_mode):
 
-    return render(request,'viewgraph/graph.html', {'data': data_json, 'show_all_checkboxes' : show_all_checkboxes})
+    return render(request,'viewgraph/graph.html', {'data' : data_json, 'landing_page_mode' : landing_page_mode})
 
 def second_index(request):
     return HttpResponse("Hello, world. You're at the second index.")
@@ -48,7 +48,7 @@ def process_user_input(request):
         user_data = compile_json_object(user_choices)
         data_json = json.dumps(user_data)
     
-    return render_graphs(request, data_json, 'show_all_checkboxes' : False})
+    return render_graphs(request, {'data' : data_json, 'landing_page_mode' : False})
 
 def compile_json_object(chosen_movie_idx):
     with open(all_movies_json_path, encoding='utf-8') as data_file:

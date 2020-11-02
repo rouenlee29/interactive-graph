@@ -23,7 +23,7 @@
     padding-bottom: 100%;
     vertical-align: top;
     overflow: hidden;
-    z-index: -1;
+    /* z-index: -1; */
 }
 .svg-content {
     display: inline-block;
@@ -35,9 +35,17 @@
     position: absolute;
     top: 5px;
     left: var(--x-offset);
-    column-count: 3;
+    font-family: Georgia;
 }
 
+.form {
+    position: absolute;
+    top: 100px;
+    left: var(--x-offset);
+    column-count: 4;
+    font-family: Georgia;
+    font-size: 15px;
+}
 
 </style>
 
@@ -50,866 +58,872 @@
     
 </div>
 
-<div class = "overlay">
-    <h2>Select movies you are interested in:</h2>
-    <form action="/selection" method="get">
+{% if landing_page_mode %}
+  <div class = "overlay">
+      <h3>Select the movies you are interested in, then click "submit"</h3>
+      <p>The more movies, the better...</p>
+  </div>
 
-      <input type="checkbox" name="movie9999" value=9999>
-      <label for="movied9999">Select All Movies</label><br>
-      
+  <div class = "form">
+      <form action="/selection" method="get">
 
-      <input type="checkbox" name="movie137" value=137>
-      <label for="movied137">Rabbit Hole</label><br>
-      
-  
-      <input type="checkbox" name="movie934" value=934>
-      <label for="movied934">Zero Charisma</label><br>
-      
-  
-      <input type="checkbox" name="movie630" value=630>
-      <label for="movied630">12 Rounds 2: Reloaded</label><br>
-      
-  
-      <input type="checkbox" name="movie992" value=992>
-      <label for="movied992">13 Sins</label><br>
-      
-  
-      <input type="checkbox" name="movie374" value=374>
-      <label for="movied374">21 Jump Street</label><br>
-      
-  
-      <input type="checkbox" name="movie632" value=632>
-      <label for="movied632">21 and Over</label><br>
-      
-  
-      <input type="checkbox" name="movie1016" value=1016>
-      <label for="movied1016">22 Jump Street</label><br>
-      
-  
-      <input type="checkbox" name="movie1439" value=1439>
-      <label for="movied1439">2:22</label><br>
-      
-  
-      <input type="checkbox" name="movie192" value=192>
-      <label for="movied192">50/50</label><br>
-      
-  
-      <input type="checkbox" name="movie1344" value=1344>
-      <label for="movied1344">A Dog's Purpose</label><br>
-      
-  
-      <input type="checkbox" name="movie253" value=253>
-      <label for="movied253">A Good Old Fashioned Orgy</label><br>
-      
-  
-      <input type="checkbox" name="movie989" value=989>
-      <label for="movied989">A Haunted House 2</label><br>
-      
-  
-      <input type="checkbox" name="movie609" value=609>
-      <label for="movied609">A Thousand Words</label><br>
-      
-  
-      <input type="checkbox" name="movie1299" value=1299>
-      <label for="movied1299">Alice Through the Looking Glass</label><br>
-      
-  
-      <input type="checkbox" name="movie4" value=4>
-      <label for="movied4">Alice in Wonderland</label><br>
-      
-  
-      <input type="checkbox" name="movie643" value=643>
-      <label for="movied643">American Hustle</label><br>
-      
-  
-      <input type="checkbox" name="movie1076" value=1076>
-      <label for="movied1076">Annabelle</label><br>
-      
-  
-      <input type="checkbox" name="movie646" value=646>
-      <label for="movied646">Apartment 1303 3D</label><br>
-      
-  
-      <input type="checkbox" name="movie203" value=203>
-      <label for="movied203">Atlas Shrugged: Part I</label><br>
-      
-  
-      <input type="checkbox" name="movie398" value=398>
-      <label for="movied398">Atlas Shrugged: Part II</label><br>
-      
-  
-      <input type="checkbox" name="movie966" value=966>
-      <label for="movied966">Barefoot</label><br>
-      
-  
-      <input type="checkbox" name="movie1373" value=1373>
-      <label for="movied1373">Beauty and the Beast</label><br>
-      
-  
-      <input type="checkbox" name="movie413" value=413>
-      <label for="movied413">Beauty and the Beast 3D</label><br>
-      
-  
-      <input type="checkbox" name="movie12" value=12>
-      <label for="movied12">Black Swan</label><br>
-      
-  
-      <input type="checkbox" name="movie1134" value=1134>
-      <label for="movied1134">Black or White</label><br>
-      
-  
-      <input type="checkbox" name="movie1008" value=1008>
-      <label for="movied1008">Blended</label><br>
-      
-  
-      <input type="checkbox" name="movie430" value=430>
-      <label for="movied430">Breaking Wind</label><br>
-      
-  
-      <input type="checkbox" name="movie681" value=681>
-      <label for="movied681">C.O.G.</label><br>
-      
-  
-      <input type="checkbox" name="movie435" value=435>
-      <label for="movied435">Campaign, The Campaign</label><br>
-      
-  
-      <input type="checkbox" name="movie214" value=214>
-      <label for="movied214">Captain America: The First Avenger</label><br>
-      
-  
-      <input type="checkbox" name="movie982" value=982>
-      <label for="movied982">Captain America: The Winter Soldier</label><br>
-      
-  
-      <input type="checkbox" name="movie686" value=686>
-      <label for="movied686">Carrie</label><br>
-      
-  
-      <input type="checkbox" name="movie770" value=770>
-      <label for="movied770">Catching Fire, The Hunger Games:The Hunger Games: Catching Fire</label><br>
-      
-  
-      <input type="checkbox" name="movie1307" value=1307>
-      <label for="movied1307">Central Intelligence</label><br>
-      
-  
-      <input type="checkbox" name="movie22" value=22>
-      <label for="movied22">Charlie St. Cloud</label><br>
-      
-  
-      <input type="checkbox" name="movie976" value=976>
-      <label for="movied976">Cheap Thrills (film)</label><br>
-      
-  
-      <input type="checkbox" name="movie444" value=444>
-      <label for="movied444">Christmas with the Dead</label><br>
-      
-  
-      <input type="checkbox" name="movie25" value=25>
-      <label for="movied25">Clash of the Titans</label><br>
-      
-  
-      <input type="checkbox" name="movie1230" value=1230>
-      <label for="movied1230">Daddy's Home</label><br>
-      
-  
-      <input type="checkbox" name="movie1511" value=1511>
-      <label for="movied1511">Daddy's Home 2</label><br>
-      
-  
-      <input type="checkbox" name="movie34" value=34>
-      <label for="movied34">Darkening Sky</label><br>
-      
-  
-      <input type="checkbox" name="movie1030" value=1030>
-      <label for="movied1030">Dawn of the Planet of the Apes</label><br>
-      
-  
-      <input type="checkbox" name="movie39" value=39>
-      <label for="movied39">Despicable Me</label><br>
-      
-  
-      <input type="checkbox" name="movie707" value=707>
-      <label for="movied707">Despicable Me 2</label><br>
-      
-  
-      <input type="checkbox" name="movie1435" value=1435>
-      <label for="movied1435">Despicable Me 3</label><br>
-      
-  
-      <input type="checkbox" name="movie41" value=41>
-      <label for="movied41">Diary of a Wimpy Kid</label><br>
-      
-  
-      <input type="checkbox" name="movie472" value=472>
-      <label for="movied472">Diary of a Wimpy Kid: Dog Days</label><br>
-      
-  
-      <input type="checkbox" name="movie231" value=231>
-      <label for="movied231">Diary of a Wimpy Kid: Rodrick Rules</label><br>
-      
-  
-      <input type="checkbox" name="movie1411" value=1411>
-      <label for="movied1411">Diary of a Wimpy Kid: The Long Haul</label><br>
-      
-  
-      <input type="checkbox" name="movie977" value=977>
-      <label for="movied977">Divergent</label><br>
-      
-  
-      <input type="checkbox" name="movie234" value=234>
-      <label for="movied234">Dolphin Tale</label><br>
-      
-  
-      <input type="checkbox" name="movie1063" value=1063>
-      <label for="movied1063">Dolphin Tale 2</label><br>
-      
-  
-      <input type="checkbox" name="movie1208" value=1208>
-      <label for="movied1208">Dope</label><br>
-      
-  
-      <input type="checkbox" name="movie44" value=44>
-      <label for="movied44">Due Date</label><br>
-      
-  
-      <input type="checkbox" name="movie240" value=240>
-      <label for="movied240">Dylan Dog: Dead of Night</label><br>
-      
-  
-      <input type="checkbox" name="movie45" value=45>
-      <label for="movied45">Easy A</label><br>
-      
-  
-      <input type="checkbox" name="movie242" value=242>
-      <label for="movied242">Everything Must Go</label><br>
-      
-  
-      <input type="checkbox" name="movie722" value=722>
-      <label for="movied722">Evil Dead</label><br>
-      
-  
-      <input type="checkbox" name="movie723" value=723>
-      <label for="movied723">Face of Love, The Face of Love</label><br>
-      
-  
-      <input type="checkbox" name="movie726" value=726>
-      <label for="movied726">Fast & Furious 6</label><br>
-      
-  
-      <input type="checkbox" name="movie244" value=244>
-      <label for="movied244">Fast Five</label><br>
-      
-  
-      <input type="checkbox" name="movie1352" value=1352>
-      <label for="movied1352">Fifty Shades Darker</label><br>
-      
-  
-      <input type="checkbox" name="movie1144" value=1144>
-      <label for="movied1144">Fifty Shades of Grey</label><br>
-      
-  
-      <input type="checkbox" name="movie1306" value=1306>
-      <label for="movied1306">Finding Dory</label><br>
-      
-  
-      <input type="checkbox" name="movie489" value=489>
-      <label for="movied489">Finding Nemo 3D</label><br>
-      
-  
-      <input type="checkbox" name="movie496" value=496>
-      <label for="movied496">For a Good Time, Call...</label><br>
-      
-  
-      <input type="checkbox" name="movie247" value=247>
-      <label for="movied247">Friends with Benefits</label><br>
-      
-  
-      <input type="checkbox" name="movie248" value=248>
-      <label for="movied248">Fright Night</label><br>
-      
-  
-      <input type="checkbox" name="movie732" value=732>
-      <label for="movied732">Fright Night 2: New Blood</label><br>
-      
-  
-      <input type="checkbox" name="movie1174" value=1174>
-      <label for="movied1174">Furious 7</label><br>
-      
-  
-      <input type="checkbox" name="movie1089" value=1089>
-      <label for="movied1089">Fury</label><br>
-      
-  
-      <input type="checkbox" name="movie509" value=509>
-      <label for="movied509">Gone</label><br>
-      
-  
-      <input type="checkbox" name="movie627" value=627>
-      <label for="movied627">Goodbye Promise</label><br>
-      
-  
-      <input type="checkbox" name="movie67" value=67>
-      <label for="movied67">Grown Ups</label><br>
-      
-  
-      <input type="checkbox" name="movie751" value=751>
-      <label for="movied751">Grown Ups 2</label><br>
-      
-  
-      <input type="checkbox" name="movie1043" value=1043>
-      <label for="movied1043">Guardians of the Galaxy</label><br>
-      
-  
-      <input type="checkbox" name="movie1402" value=1402>
-      <label for="movied1402">Guardians of the Galaxy Vol. 2</label><br>
-      
-  
-      <input type="checkbox" name="movie69" value=69>
-      <label for="movied69">Harry Potter and the Deathly Hallows: Part 1</label><br>
-      
-  
-      <input type="checkbox" name="movie262" value=262>
-      <label for="movied262">Harry Potter and the Deathly Hallows: Part 2</label><br>
-      
-  
-      <input type="checkbox" name="movie758" value=758>
-      <label for="movied758">Haunted House, AA Haunted House</label><br>
-      
-  
-      <input type="checkbox" name="movie759" value=759>
-      <label for="movied759">Haunting in Connecticut 2: Ghosts of Georgia, The Haunting in Connecticut 2: Ghosts of Georgia</label><br>
-      
-  
-      <input type="checkbox" name="movie1040" value=1040>
-      <label for="movied1040">Hercules</label><br>
-      
-  
-      <input type="checkbox" name="movie72" value=72>
-      <label for="movied72">Hot Tub Time Machine</label><br>
-      
-  
-      <input type="checkbox" name="movie1148" value=1148>
-      <label for="movied1148">Hot Tub Time Machine 2</label><br>
-      
-  
-      <input type="checkbox" name="movie74" value=74>
-      <label for="movied74">How to Train Your Dragon</label><br>
-      
-  
-      <input type="checkbox" name="movie1018" value=1018>
-      <label for="movied1018">How to Train Your Dragon 2</label><br>
-      
-  
-      <input type="checkbox" name="movie772" value=772>
-      <label for="movied772">I Spit on Your Grave 2</label><br>
-      
-  
-      <input type="checkbox" name="movie1055" value=1055>
-      <label for="movied1055">If I Stay</label><br>
-      
-  
-      <input type="checkbox" name="movie1438" value=1438>
-      <label for="movied1438">Inconceivable</label><br>
-      
-  
-      <input type="checkbox" name="movie1109" value=1109>
-      <label for="movied1109">Inherent Vice</label><br>
-      
-  
-      <input type="checkbox" name="movie277" value=277>
-      <label for="movied277">Insidious</label><br>
-      
-  
-      <input type="checkbox" name="movie782" value=782>
-      <label for="movied782">Insidious: Chapter 2</label><br>
-      
-  
-      <input type="checkbox" name="movie79" value=79>
-      <label for="movied79">Iron Man 2</label><br>
-      
-  
-      <input type="checkbox" name="movie784" value=784>
-      <label for="movied784">Iron Man 3</label><br>
-      
-  
-      <input type="checkbox" name="movie1162" value=1162>
-      <label for="movied1162">It Follows</label><br>
-      
-  
-      <input type="checkbox" name="movie80" value=80>
-      <label for="movied80">It's Kind of a Funny Story</label><br>
-      
-  
-      <input type="checkbox" name="movie279" value=279>
-      <label for="movied279">Jack and Jill</label><br>
-      
-  
-      <input type="checkbox" name="movie788" value=788>
-      <label for="movied788">Jackass Presents: Bad Grandpa</label><br>
-      
-  
-      <input type="checkbox" name="movie88" value=88>
-      <label for="movied88">Kick-Ass</label><br>
-      
-  
-      <input type="checkbox" name="movie799" value=799>
-      <label for="movied799">Kick-Ass 2</label><br>
-      
-  
-      <input type="checkbox" name="movie990" value=990>
-      <label for="movied990">Kid Cannabis</label><br>
-      
-  
-      <input type="checkbox" name="movie1473" value=1473>
-      <label for="movied1473">Kingsman: The Golden Circle</label><br>
-      
-  
-      <input type="checkbox" name="movie1145" value=1145>
-      <label for="movied1145">Kingsman: The Secret Service</label><br>
-      
-  
-      <input type="checkbox" name="movie286" value=286>
-      <label for="movied286">Kung Fu Panda 2</label><br>
-      
-  
-      <input type="checkbox" name="movie1246" value=1246>
-      <label for="movied1246">Kung Fu Panda 3</label><br>
-      
-  
-      <input type="checkbox" name="movie820" value=820>
-      <label for="movied820">LUV</label><br>
-      
-  
-      <input type="checkbox" name="movie102" value=102>
-      <label for="movied102">Letters to God</label><br>
-      
-  
-      <input type="checkbox" name="movie1378" value=1378>
-      <label for="movied1378">Life</label><br>
-      
-  
-      <input type="checkbox" name="movie106" value=106>
-      <label for="movied106">Little Fockers</label><br>
-      
-  
-      <input type="checkbox" name="movie1261" value=1261>
-      <label for="movied1261">London Has Fallen</label><br>
-      
-  
-      <input type="checkbox" name="movie815" value=815>
-      <label for="movied815">Lords of Salem, The Lords of Salem</label><br>
-      
-  
-      <input type="checkbox" name="movie109" value=109>
-      <label for="movied109">Love & Other Drugs</label><br>
-      
-  
-      <input type="checkbox" name="movie111" value=111>
-      <label for="movied111">Machete</label><br>
-      
-  
-      <input type="checkbox" name="movie821" value=821>
-      <label for="movied821">Machete Kills</label><br>
-      
-  
-      <input type="checkbox" name="movie296" value=296>
-      <label for="movied296">Mars Needs Moms</label><br>
-      
-  
-      <input type="checkbox" name="movie1207" value=1207>
-      <label for="movied1207">Me and Earl and the Dying Girl</label><br>
-      
-  
-      <input type="checkbox" name="movie828" value=828>
-      <label for="movied828">Monsters University</label><br>
-      
-  
-      <input type="checkbox" name="movie551" value=551>
-      <label for="movied551">Monsters, Inc. 3D</label><br>
-      
-  
-      <input type="checkbox" name="movie978" value=978>
-      <label for="movied978">Muppets Most Wanted</label><br>
-      
-  
-      <input type="checkbox" name="movie833" value=833>
-      <label for="movied833">Nebraska</label><br>
-      
-  
-      <input type="checkbox" name="movie1003" value=1003>
-      <label for="movied1003">Neighbors</label><br>
-      
-  
-      <input type="checkbox" name="movie1296" value=1296>
-      <label for="movied1296">Neighbors 2: Sorority Rising</label><br>
-      
-  
-      <input type="checkbox" name="movie1091" value=1091>
-      <label for="movied1091">Nightcrawler</label><br>
-      
-  
-      <input type="checkbox" name="movie307" value=307>
-      <label for="movied307">No Strings Attached</label><br>
-      
-  
-      <input type="checkbox" name="movie835" value=835>
-      <label for="movied835">Now You See Me</label><br>
-      
-  
-      <input type="checkbox" name="movie1305" value=1305>
-      <label for="movied1305">Now You See Me 2</label><br>
-      
-  
-      <input type="checkbox" name="movie839" value=839>
-      <label for="movied839">Olympus Has Fallen</label><br>
-      
-  
-      <input type="checkbox" name="movie560" value=560>
-      <label for="movied560">ParaNorman</label><br>
-      
-  
-      <input type="checkbox" name="movie128" value=128>
-      <label for="movied128">Paranormal Activity 2</label><br>
-      
-  
-      <input type="checkbox" name="movie310" value=310>
-      <label for="movied310">Paranormal Activity 3</label><br>
-      
-  
-      <input type="checkbox" name="movie129" value=129>
-      <label for="movied129">Passion Play</label><br>
-      
-  
-      <input type="checkbox" name="movie130" value=130>
-      <label for="movied130">Percy Jackson & the Olympians: The Lightning Thief</label><br>
-      
-  
-      <input type="checkbox" name="movie852" value=852>
-      <label for="movied852">Percy Jackson: Sea of Monsters</label><br>
-      
-  
-      <input type="checkbox" name="movie566" value=566>
-      <label for="movied566">Pitch Perfect</label><br>
-      
-  
-      <input type="checkbox" name="movie1196" value=1196>
-      <label for="movied1196">Pitch Perfect 2</label><br>
-      
-  
-      <input type="checkbox" name="movie1533" value=1533>
-      <label for="movied1533">Pitch Perfect 3</label><br>
-      
-  
-      <input type="checkbox" name="movie856" value=856>
-      <label for="movied856">Planes</label><br>
-      
-  
-      <input type="checkbox" name="movie1035" value=1035>
-      <label for="movied1035">Planes: Fire & Rescue</label><br>
-      
-  
-      <input type="checkbox" name="movie1491" value=1491>
-      <label for="movied1491">Professor Marston and the Wonder Women</label><br>
-      
-  
-      <input type="checkbox" name="movie1136" value=1136>
-      <label for="movied1136">Project Almanac</label><br>
-      
-  
-      <input type="checkbox" name="movie867" value=867>
-      <label for="movied867">RED 2</label><br>
-      
-  
-      <input type="checkbox" name="movie138" value=138>
-      <label for="movied138">Ramona and Beezus</label><br>
-      
-  
-      <input type="checkbox" name="movie140" value=140>
-      <label for="movied140">Red</label><br>
-      
-  
-      <input type="checkbox" name="movie141" value=141>
-      <label for="movied141">Remember Me</label><br>
-      
-  
-      <input type="checkbox" name="movie143" value=143>
-      <label for="movied143">Resident Evil: Afterlife</label><br>
-      
-  
-      <input type="checkbox" name="movie579" value=579>
-      <label for="movied579">Resident Evil: Retribution</label><br>
-      
-  
-      <input type="checkbox" name="movie1345" value=1345>
-      <label for="movied1345">Resident Evil: The Final Chapter</label><br>
-      
-  
-      <input type="checkbox" name="movie944" value=944>
-      <label for="movied944">Ride Along</label><br>
-      
-  
-      <input type="checkbox" name="movie1238" value=1238>
-      <label for="movied1238">Ride Along 2</label><br>
-      
-  
-      <input type="checkbox" name="movie325" value=325>
-      <label for="movied325">Rio</label><br>
-      
-  
-      <input type="checkbox" name="movie987" value=987>
-      <label for="movied987">Rio 2</label><br>
-      
-  
-      <input type="checkbox" name="movie326" value=326>
-      <label for="movied326">Rise of the Planet of the Apes</label><br>
-      
-  
-      <input type="checkbox" name="movie1223" value=1223>
-      <label for="movied1223">Room (2015 film)</label><br>
-      
-  
-      <input type="checkbox" name="movie583" value=583>
-      <label for="movied583">Ruby Sparks</label><br>
-      
-  
-      <input type="checkbox" name="movie874" value=874>
-      <label for="movied874">Safe Haven</label><br>
-      
-  
-      <input type="checkbox" name="movie150" value=150>
-      <label for="movied150">Scott Pilgrim vs. the World</label><br>
-      
-  
-      <input type="checkbox" name="movie152" value=152>
-      <label for="movied152">Sex and the City 2</label><br>
-      
-  
-      <input type="checkbox" name="movie883" value=883>
-      <label for="movied883">Sexy Evil Genius</label><br>
-      
-  
-      <input type="checkbox" name="movie1401" value=1401>
-      <label for="movied1401">Sleight</label><br>
-      
-  
-      <input type="checkbox" name="movie1386" value=1386>
-      <label for="movied1386">Smurfs: The Lost Village</label><br>
-      
-  
-      <input type="checkbox" name="movie898" value=898>
-      <label for="movied898">Stand Up Guys</label><br>
-      
-  
-      <input type="checkbox" name="movie1475" value=1475>
-      <label for="movied1475">Stronger</label><br>
-      
-  
-      <input type="checkbox" name="movie1300" value=1300>
-      <label for="movied1300">TMNT 2: Out of the Shadows</label><br>
-      
-  
-      <input type="checkbox" name="movie348" value=348>
-      <label for="movied348">Take Me Home Tonight</label><br>
-      
-  
-      <input type="checkbox" name="movie602" value=602>
-      <label for="movied602">Taken 2</label><br>
-      
-  
-      <input type="checkbox" name="movie1119" value=1119>
-      <label for="movied1119">Taken 3</label><br>
-      
-  
-      <input type="checkbox" name="movie604" value=604>
-      <label for="movied604">Ted</label><br>
-      
-  
-      <input type="checkbox" name="movie1211" value=1211>
-      <label for="movied1211">Ted 2</label><br>
-      
-  
-      <input type="checkbox" name="movie1049" value=1049>
-      <label for="movied1049">Teenage Mutant Nina Turtles</label><br>
-      
-  
-      <input type="checkbox" name="movie15" value=15>
-      <label for="movied15">The Bounty Hunter</label><br>
-      
-  
-      <input type="checkbox" name="movie1128" value=1128>
-      <label for="movied1128">The Boy Next Door</label><br>
-      
-  
-      <input type="checkbox" name="movie1335" value=1335>
-      <label for="movied1335">The Bye Bye Man</label><br>
-      
-  
-      <input type="checkbox" name="movie1269" value=1269>
-      <label for="movied1269">The Divergent Series: Allegiant</label><br>
-      
-  
-      <input type="checkbox" name="movie1166" value=1166>
-      <label for="movied1166">The Divergent Series: Insurgent</label><br>
-      
-  
-      <input type="checkbox" name="movie1391" value=1391>
-      <label for="movied1391">The Fate of the Furious</label><br>
-      
-  
-      <input type="checkbox" name="movie753" value=753>
-      <label for="movied753">The Hangover Part III</label><br>
-      
-  
-      <input type="checkbox" name="movie258" value=258>
-      <label for="movied258">The Hangover: Part II</label><br>
-      
-  
-      <input type="checkbox" name="movie521" value=521>
-      <label for="movied521">The Hunger Games</label><br>
-      
-  
-      <input type="checkbox" name="movie1104" value=1104>
-      <label for="movied1104">The Hunger Games: Mockingjay – Part 1</label><br>
-      
-  
-      <input type="checkbox" name="movie90" value=90>
-      <label for="movied90">The Killer Inside Me</label><br>
-      
-  
-      <input type="checkbox" name="movie95" value=95>
-      <label for="movied95">The Last Exorcism</label><br>
-      
-  
-      <input type="checkbox" name="movie807" value=807>
-      <label for="movied807">The Last Exorcism Part II</label><br>
-      
-  
-      <input type="checkbox" name="movie939" value=939>
-      <label for="movied939">The Legend of Hercules</label><br>
-      
-  
-      <input type="checkbox" name="movie304" value=304>
-      <label for="movied304">The Muppets</label><br>
-      
-  
-      <input type="checkbox" name="movie122" value=122>
-      <label for="movied122">The Next Three Days</label><br>
-      
-  
-      <input type="checkbox" name="movie943" value=943>
-      <label for="movied943">The Nut Job</label><br>
-      
-  
-      <input type="checkbox" name="movie1457" value=1457>
-      <label for="movied1457">The Nut Job 2: Nutty by Nature</label><br>
-      
-  
-      <input type="checkbox" name="movie1054" value=1054>
-      <label for="movied1054">The One I Love</label><br>
-      
-  
-      <input type="checkbox" name="movie557" value=557>
-      <label for="movied557">The Oranges</label><br>
-      
-  
-      <input type="checkbox" name="movie564" value=564>
-      <label for="movied564">The Perks of Being a Wallflower</label><br>
-      
-  
-      <input type="checkbox" name="movie860" value=860>
-      <label for="movied860">The Pretty One</label><br>
-      
-  
-      <input type="checkbox" name="movie957" value=957>
-      <label for="movied957">The Pretty One</label><br>
-      
-  
-      <input type="checkbox" name="movie335" value=335>
-      <label for="movied335">The Sitter</label><br>
-      
-  
-      <input type="checkbox" name="movie1070" value=1070>
-      <label for="movied1070">The Skeleton Twins</label><br>
-      
-  
-      <input type="checkbox" name="movie337" value=337>
-      <label for="movied337">The Smurfs</label><br>
-      
-  
-      <input type="checkbox" name="movie890" value=890>
-      <label for="movied890">The Smurfs 2</label><br>
-      
-  
-      <input type="checkbox" name="movie891" value=891>
-      <label for="movied891">The Smurfs: The Legend of Smurfy Hollow</label><br>
-      
-  
-      <input type="checkbox" name="movie1516" value=1516>
-      <label for="movied1516">The Star</label><br>
-      
-  
-      <input type="checkbox" name="movie211" value=211>
-      <label for="movied211">The Twilight Saga: Breaking Dawn - Part 1</label><br>
-      
-  
-      <input type="checkbox" name="movie47" value=47>
-      <label for="movied47">The Twilight Saga: Eclipse</label><br>
-      
-  
-      <input type="checkbox" name="movie352" value=352>
-      <label for="movied352">Thor</label><br>
-      
-  
-      <input type="checkbox" name="movie1506" value=1506>
-      <label for="movied1506">Thor: Ragnarok</label><br>
-      
-  
-      <input type="checkbox" name="movie911" value=911>
-      <label for="movied911">Thor: The Dark World</label><br>
-      
-  
-      <input type="checkbox" name="movie614" value=614>
-      <label for="movied614">Touchback</label><br>
-      
-  
-      <input type="checkbox" name="movie1168" value=1168>
-      <label for="movied1168">Tracers</label><br>
-      
-  
-      <input type="checkbox" name="movie616" value=616>
-      <label for="movied616">Underworld: Awakening</label><br>
-      
-  
-      <input type="checkbox" name="movie1333" value=1333>
-      <label for="movied1333">Underworld: Blood Wars</label><br>
-      
-  
-      <input type="checkbox" name="movie176" value=176>
-      <label for="movied176">Vampires Suck</label><br>
-      
-  
-      <input type="checkbox" name="movie619" value=619>
-      <label for="movied619">Virginia</label><br>
-      
-  
-      <input type="checkbox" name="movie1442" value=1442>
-      <label for="movied1442">War for the Planet of the Apes</label><br>
-      
-  
-      <input type="checkbox" name="movie180" value=180>
-      <label for="movied180">What's Wrong with Virginia</label><br>
-      
-  
-      <input type="checkbox" name="movie625" value=625>
-      <label for="movied625">Wrath of the Titans</label><br>
-      
-  
-      <br>
-      <input type="submit" value="Submit">  
-    </form>  
-</div>
+        <input type="checkbox" name="movie9999" value=9999>
+        <label for="movied9999">Select All Movies</label><br>
+        
+
+        <input type="checkbox" name="movie137" value=137>
+        <label for="movied137">Rabbit Hole</label><br>
+        
+    
+        <input type="checkbox" name="movie934" value=934>
+        <label for="movied934">Zero Charisma</label><br>
+        
+    
+        <input type="checkbox" name="movie630" value=630>
+        <label for="movied630">12 Rounds 2: Reloaded</label><br>
+        
+    
+        <input type="checkbox" name="movie992" value=992>
+        <label for="movied992">13 Sins</label><br>
+        
+    
+        <input type="checkbox" name="movie374" value=374>
+        <label for="movied374">21 Jump Street</label><br>
+        
+    
+        <input type="checkbox" name="movie632" value=632>
+        <label for="movied632">21 and Over</label><br>
+        
+    
+        <input type="checkbox" name="movie1016" value=1016>
+        <label for="movied1016">22 Jump Street</label><br>
+        
+    
+        <input type="checkbox" name="movie1439" value=1439>
+        <label for="movied1439">2:22</label><br>
+        
+    
+        <input type="checkbox" name="movie192" value=192>
+        <label for="movied192">50/50</label><br>
+        
+    
+        <input type="checkbox" name="movie1344" value=1344>
+        <label for="movied1344">A Dog's Purpose</label><br>
+        
+    
+        <input type="checkbox" name="movie253" value=253>
+        <label for="movied253">A Good Old Fashioned Orgy</label><br>
+        
+    
+        <input type="checkbox" name="movie989" value=989>
+        <label for="movied989">A Haunted House 2</label><br>
+        
+    
+        <input type="checkbox" name="movie609" value=609>
+        <label for="movied609">A Thousand Words</label><br>
+        
+    
+        <input type="checkbox" name="movie1299" value=1299>
+        <label for="movied1299">Alice Through the Looking Glass</label><br>
+        
+    
+        <input type="checkbox" name="movie4" value=4>
+        <label for="movied4">Alice in Wonderland</label><br>
+        
+    
+        <input type="checkbox" name="movie643" value=643>
+        <label for="movied643">American Hustle</label><br>
+        
+    
+        <input type="checkbox" name="movie1076" value=1076>
+        <label for="movied1076">Annabelle</label><br>
+        
+    
+        <input type="checkbox" name="movie646" value=646>
+        <label for="movied646">Apartment 1303 3D</label><br>
+        
+    
+        <input type="checkbox" name="movie203" value=203>
+        <label for="movied203">Atlas Shrugged: Part I</label><br>
+        
+    
+        <input type="checkbox" name="movie398" value=398>
+        <label for="movied398">Atlas Shrugged: Part II</label><br>
+        
+    
+        <input type="checkbox" name="movie966" value=966>
+        <label for="movied966">Barefoot</label><br>
+        
+    
+        <input type="checkbox" name="movie1373" value=1373>
+        <label for="movied1373">Beauty and the Beast</label><br>
+        
+    
+        <input type="checkbox" name="movie413" value=413>
+        <label for="movied413">Beauty and the Beast 3D</label><br>
+        
+    
+        <input type="checkbox" name="movie12" value=12>
+        <label for="movied12">Black Swan</label><br>
+        
+    
+        <input type="checkbox" name="movie1134" value=1134>
+        <label for="movied1134">Black or White</label><br>
+        
+    
+        <input type="checkbox" name="movie1008" value=1008>
+        <label for="movied1008">Blended</label><br>
+        
+    
+        <input type="checkbox" name="movie430" value=430>
+        <label for="movied430">Breaking Wind</label><br>
+        
+    
+        <input type="checkbox" name="movie681" value=681>
+        <label for="movied681">C.O.G.</label><br>
+        
+    
+        <input type="checkbox" name="movie435" value=435>
+        <label for="movied435">Campaign, The Campaign</label><br>
+        
+    
+        <input type="checkbox" name="movie214" value=214>
+        <label for="movied214">Captain America: The First Avenger</label><br>
+        
+    
+        <input type="checkbox" name="movie982" value=982>
+        <label for="movied982">Captain America: The Winter Soldier</label><br>
+        
+    
+        <input type="checkbox" name="movie686" value=686>
+        <label for="movied686">Carrie</label><br>
+        
+    
+        <input type="checkbox" name="movie770" value=770>
+        <label for="movied770">Catching Fire, The Hunger Games:The Hunger Games: Catching Fire</label><br>
+        
+    
+        <input type="checkbox" name="movie1307" value=1307>
+        <label for="movied1307">Central Intelligence</label><br>
+        
+    
+        <input type="checkbox" name="movie22" value=22>
+        <label for="movied22">Charlie St. Cloud</label><br>
+        
+    
+        <input type="checkbox" name="movie976" value=976>
+        <label for="movied976">Cheap Thrills (film)</label><br>
+        
+    
+        <input type="checkbox" name="movie444" value=444>
+        <label for="movied444">Christmas with the Dead</label><br>
+        
+    
+        <input type="checkbox" name="movie25" value=25>
+        <label for="movied25">Clash of the Titans</label><br>
+        
+    
+        <input type="checkbox" name="movie1230" value=1230>
+        <label for="movied1230">Daddy's Home</label><br>
+        
+    
+        <input type="checkbox" name="movie1511" value=1511>
+        <label for="movied1511">Daddy's Home 2</label><br>
+        
+    
+        <input type="checkbox" name="movie34" value=34>
+        <label for="movied34">Darkening Sky</label><br>
+        
+    
+        <input type="checkbox" name="movie1030" value=1030>
+        <label for="movied1030">Dawn of the Planet of the Apes</label><br>
+        
+    
+        <input type="checkbox" name="movie39" value=39>
+        <label for="movied39">Despicable Me</label><br>
+        
+    
+        <input type="checkbox" name="movie707" value=707>
+        <label for="movied707">Despicable Me 2</label><br>
+        
+    
+        <input type="checkbox" name="movie1435" value=1435>
+        <label for="movied1435">Despicable Me 3</label><br>
+        
+    
+        <input type="checkbox" name="movie41" value=41>
+        <label for="movied41">Diary of a Wimpy Kid</label><br>
+        
+    
+        <input type="checkbox" name="movie472" value=472>
+        <label for="movied472">Diary of a Wimpy Kid: Dog Days</label><br>
+        
+    
+        <input type="checkbox" name="movie231" value=231>
+        <label for="movied231">Diary of a Wimpy Kid: Rodrick Rules</label><br>
+        
+    
+        <input type="checkbox" name="movie1411" value=1411>
+        <label for="movied1411">Diary of a Wimpy Kid: The Long Haul</label><br>
+        
+    
+        <input type="checkbox" name="movie977" value=977>
+        <label for="movied977">Divergent</label><br>
+        
+    
+        <input type="checkbox" name="movie234" value=234>
+        <label for="movied234">Dolphin Tale</label><br>
+        
+    
+        <input type="checkbox" name="movie1063" value=1063>
+        <label for="movied1063">Dolphin Tale 2</label><br>
+        
+    
+        <input type="checkbox" name="movie1208" value=1208>
+        <label for="movied1208">Dope</label><br>
+        
+    
+        <input type="checkbox" name="movie44" value=44>
+        <label for="movied44">Due Date</label><br>
+        
+    
+        <input type="checkbox" name="movie240" value=240>
+        <label for="movied240">Dylan Dog: Dead of Night</label><br>
+        
+    
+        <input type="checkbox" name="movie45" value=45>
+        <label for="movied45">Easy A</label><br>
+        
+    
+        <input type="checkbox" name="movie242" value=242>
+        <label for="movied242">Everything Must Go</label><br>
+        
+    
+        <input type="checkbox" name="movie722" value=722>
+        <label for="movied722">Evil Dead</label><br>
+        
+    
+        <input type="checkbox" name="movie723" value=723>
+        <label for="movied723">Face of Love, The Face of Love</label><br>
+        
+    
+        <input type="checkbox" name="movie726" value=726>
+        <label for="movied726">Fast & Furious 6</label><br>
+        
+    
+        <input type="checkbox" name="movie244" value=244>
+        <label for="movied244">Fast Five</label><br>
+        
+    
+        <input type="checkbox" name="movie1352" value=1352>
+        <label for="movied1352">Fifty Shades Darker</label><br>
+        
+    
+        <input type="checkbox" name="movie1144" value=1144>
+        <label for="movied1144">Fifty Shades of Grey</label><br>
+        
+    
+        <input type="checkbox" name="movie1306" value=1306>
+        <label for="movied1306">Finding Dory</label><br>
+        
+    
+        <input type="checkbox" name="movie489" value=489>
+        <label for="movied489">Finding Nemo 3D</label><br>
+        
+    
+        <input type="checkbox" name="movie496" value=496>
+        <label for="movied496">For a Good Time, Call...</label><br>
+        
+    
+        <input type="checkbox" name="movie247" value=247>
+        <label for="movied247">Friends with Benefits</label><br>
+        
+    
+        <input type="checkbox" name="movie248" value=248>
+        <label for="movied248">Fright Night</label><br>
+        
+    
+        <input type="checkbox" name="movie732" value=732>
+        <label for="movied732">Fright Night 2: New Blood</label><br>
+        
+    
+        <input type="checkbox" name="movie1174" value=1174>
+        <label for="movied1174">Furious 7</label><br>
+        
+    
+        <input type="checkbox" name="movie1089" value=1089>
+        <label for="movied1089">Fury</label><br>
+        
+    
+        <input type="checkbox" name="movie509" value=509>
+        <label for="movied509">Gone</label><br>
+        
+    
+        <input type="checkbox" name="movie627" value=627>
+        <label for="movied627">Goodbye Promise</label><br>
+        
+    
+        <input type="checkbox" name="movie67" value=67>
+        <label for="movied67">Grown Ups</label><br>
+        
+    
+        <input type="checkbox" name="movie751" value=751>
+        <label for="movied751">Grown Ups 2</label><br>
+        
+    
+        <input type="checkbox" name="movie1043" value=1043>
+        <label for="movied1043">Guardians of the Galaxy</label><br>
+        
+    
+        <input type="checkbox" name="movie1402" value=1402>
+        <label for="movied1402">Guardians of the Galaxy Vol. 2</label><br>
+        
+    
+        <input type="checkbox" name="movie69" value=69>
+        <label for="movied69">Harry Potter and the Deathly Hallows: Part 1</label><br>
+        
+    
+        <input type="checkbox" name="movie262" value=262>
+        <label for="movied262">Harry Potter and the Deathly Hallows: Part 2</label><br>
+        
+    
+        <input type="checkbox" name="movie758" value=758>
+        <label for="movied758">Haunted House, AA Haunted House</label><br>
+        
+    
+        <input type="checkbox" name="movie759" value=759>
+        <label for="movied759">Haunting in Connecticut 2: Ghosts of Georgia, The Haunting in Connecticut 2: Ghosts of Georgia</label><br>
+        
+    
+        <input type="checkbox" name="movie1040" value=1040>
+        <label for="movied1040">Hercules</label><br>
+        
+    
+        <input type="checkbox" name="movie72" value=72>
+        <label for="movied72">Hot Tub Time Machine</label><br>
+        
+    
+        <input type="checkbox" name="movie1148" value=1148>
+        <label for="movied1148">Hot Tub Time Machine 2</label><br>
+        
+    
+        <input type="checkbox" name="movie74" value=74>
+        <label for="movied74">How to Train Your Dragon</label><br>
+        
+    
+        <input type="checkbox" name="movie1018" value=1018>
+        <label for="movied1018">How to Train Your Dragon 2</label><br>
+        
+    
+        <input type="checkbox" name="movie772" value=772>
+        <label for="movied772">I Spit on Your Grave 2</label><br>
+        
+    
+        <input type="checkbox" name="movie1055" value=1055>
+        <label for="movied1055">If I Stay</label><br>
+        
+    
+        <input type="checkbox" name="movie1438" value=1438>
+        <label for="movied1438">Inconceivable</label><br>
+        
+    
+        <input type="checkbox" name="movie1109" value=1109>
+        <label for="movied1109">Inherent Vice</label><br>
+        
+    
+        <input type="checkbox" name="movie277" value=277>
+        <label for="movied277">Insidious</label><br>
+        
+    
+        <input type="checkbox" name="movie782" value=782>
+        <label for="movied782">Insidious: Chapter 2</label><br>
+        
+    
+        <input type="checkbox" name="movie79" value=79>
+        <label for="movied79">Iron Man 2</label><br>
+        
+    
+        <input type="checkbox" name="movie784" value=784>
+        <label for="movied784">Iron Man 3</label><br>
+        
+    
+        <input type="checkbox" name="movie1162" value=1162>
+        <label for="movied1162">It Follows</label><br>
+        
+    
+        <input type="checkbox" name="movie80" value=80>
+        <label for="movied80">It's Kind of a Funny Story</label><br>
+        
+    
+        <input type="checkbox" name="movie279" value=279>
+        <label for="movied279">Jack and Jill</label><br>
+        
+    
+        <input type="checkbox" name="movie788" value=788>
+        <label for="movied788">Jackass Presents: Bad Grandpa</label><br>
+        
+    
+        <input type="checkbox" name="movie88" value=88>
+        <label for="movied88">Kick-Ass</label><br>
+        
+    
+        <input type="checkbox" name="movie799" value=799>
+        <label for="movied799">Kick-Ass 2</label><br>
+        
+    
+        <input type="checkbox" name="movie990" value=990>
+        <label for="movied990">Kid Cannabis</label><br>
+        
+    
+        <input type="checkbox" name="movie1473" value=1473>
+        <label for="movied1473">Kingsman: The Golden Circle</label><br>
+        
+    
+        <input type="checkbox" name="movie1145" value=1145>
+        <label for="movied1145">Kingsman: The Secret Service</label><br>
+        
+    
+        <input type="checkbox" name="movie286" value=286>
+        <label for="movied286">Kung Fu Panda 2</label><br>
+        
+    
+        <input type="checkbox" name="movie1246" value=1246>
+        <label for="movied1246">Kung Fu Panda 3</label><br>
+        
+    
+        <input type="checkbox" name="movie820" value=820>
+        <label for="movied820">LUV</label><br>
+        
+    
+        <input type="checkbox" name="movie102" value=102>
+        <label for="movied102">Letters to God</label><br>
+        
+    
+        <input type="checkbox" name="movie1378" value=1378>
+        <label for="movied1378">Life</label><br>
+        
+    
+        <input type="checkbox" name="movie106" value=106>
+        <label for="movied106">Little Fockers</label><br>
+        
+    
+        <input type="checkbox" name="movie1261" value=1261>
+        <label for="movied1261">London Has Fallen</label><br>
+        
+    
+        <input type="checkbox" name="movie815" value=815>
+        <label for="movied815">Lords of Salem, The Lords of Salem</label><br>
+        
+    
+        <input type="checkbox" name="movie109" value=109>
+        <label for="movied109">Love & Other Drugs</label><br>
+        
+    
+        <input type="checkbox" name="movie111" value=111>
+        <label for="movied111">Machete</label><br>
+        
+    
+        <input type="checkbox" name="movie821" value=821>
+        <label for="movied821">Machete Kills</label><br>
+        
+    
+        <input type="checkbox" name="movie296" value=296>
+        <label for="movied296">Mars Needs Moms</label><br>
+        
+    
+        <input type="checkbox" name="movie1207" value=1207>
+        <label for="movied1207">Me and Earl and the Dying Girl</label><br>
+        
+    
+        <input type="checkbox" name="movie828" value=828>
+        <label for="movied828">Monsters University</label><br>
+        
+    
+        <input type="checkbox" name="movie551" value=551>
+        <label for="movied551">Monsters, Inc. 3D</label><br>
+        
+    
+        <input type="checkbox" name="movie978" value=978>
+        <label for="movied978">Muppets Most Wanted</label><br>
+        
+    
+        <input type="checkbox" name="movie833" value=833>
+        <label for="movied833">Nebraska</label><br>
+        
+    
+        <input type="checkbox" name="movie1003" value=1003>
+        <label for="movied1003">Neighbors</label><br>
+        
+    
+        <input type="checkbox" name="movie1296" value=1296>
+        <label for="movied1296">Neighbors 2: Sorority Rising</label><br>
+        
+    
+        <input type="checkbox" name="movie1091" value=1091>
+        <label for="movied1091">Nightcrawler</label><br>
+        
+    
+        <input type="checkbox" name="movie307" value=307>
+        <label for="movied307">No Strings Attached</label><br>
+        
+    
+        <input type="checkbox" name="movie835" value=835>
+        <label for="movied835">Now You See Me</label><br>
+        
+    
+        <input type="checkbox" name="movie1305" value=1305>
+        <label for="movied1305">Now You See Me 2</label><br>
+        
+    
+        <input type="checkbox" name="movie839" value=839>
+        <label for="movied839">Olympus Has Fallen</label><br>
+        
+    
+        <input type="checkbox" name="movie560" value=560>
+        <label for="movied560">ParaNorman</label><br>
+        
+    
+        <input type="checkbox" name="movie128" value=128>
+        <label for="movied128">Paranormal Activity 2</label><br>
+        
+    
+        <input type="checkbox" name="movie310" value=310>
+        <label for="movied310">Paranormal Activity 3</label><br>
+        
+    
+        <input type="checkbox" name="movie129" value=129>
+        <label for="movied129">Passion Play</label><br>
+        
+    
+        <input type="checkbox" name="movie130" value=130>
+        <label for="movied130">Percy Jackson & the Olympians: The Lightning Thief</label><br>
+        
+    
+        <input type="checkbox" name="movie852" value=852>
+        <label for="movied852">Percy Jackson: Sea of Monsters</label><br>
+        
+    
+        <input type="checkbox" name="movie566" value=566>
+        <label for="movied566">Pitch Perfect</label><br>
+        
+    
+        <input type="checkbox" name="movie1196" value=1196>
+        <label for="movied1196">Pitch Perfect 2</label><br>
+        
+    
+        <input type="checkbox" name="movie1533" value=1533>
+        <label for="movied1533">Pitch Perfect 3</label><br>
+        
+    
+        <input type="checkbox" name="movie856" value=856>
+        <label for="movied856">Planes</label><br>
+        
+    
+        <input type="checkbox" name="movie1035" value=1035>
+        <label for="movied1035">Planes: Fire & Rescue</label><br>
+        
+    
+        <input type="checkbox" name="movie1491" value=1491>
+        <label for="movied1491">Professor Marston and the Wonder Women</label><br>
+        
+    
+        <input type="checkbox" name="movie1136" value=1136>
+        <label for="movied1136">Project Almanac</label><br>
+        
+    
+        <input type="checkbox" name="movie867" value=867>
+        <label for="movied867">RED 2</label><br>
+        
+    
+        <input type="checkbox" name="movie138" value=138>
+        <label for="movied138">Ramona and Beezus</label><br>
+        
+    
+        <input type="checkbox" name="movie140" value=140>
+        <label for="movied140">Red</label><br>
+        
+    
+        <input type="checkbox" name="movie141" value=141>
+        <label for="movied141">Remember Me</label><br>
+        
+    
+        <input type="checkbox" name="movie143" value=143>
+        <label for="movied143">Resident Evil: Afterlife</label><br>
+        
+    
+        <input type="checkbox" name="movie579" value=579>
+        <label for="movied579">Resident Evil: Retribution</label><br>
+        
+    
+        <input type="checkbox" name="movie1345" value=1345>
+        <label for="movied1345">Resident Evil: The Final Chapter</label><br>
+        
+    
+        <input type="checkbox" name="movie944" value=944>
+        <label for="movied944">Ride Along</label><br>
+        
+    
+        <input type="checkbox" name="movie1238" value=1238>
+        <label for="movied1238">Ride Along 2</label><br>
+        
+    
+        <input type="checkbox" name="movie325" value=325>
+        <label for="movied325">Rio</label><br>
+        
+    
+        <input type="checkbox" name="movie987" value=987>
+        <label for="movied987">Rio 2</label><br>
+        
+    
+        <input type="checkbox" name="movie326" value=326>
+        <label for="movied326">Rise of the Planet of the Apes</label><br>
+        
+    
+        <input type="checkbox" name="movie1223" value=1223>
+        <label for="movied1223">Room (2015 film)</label><br>
+        
+    
+        <input type="checkbox" name="movie583" value=583>
+        <label for="movied583">Ruby Sparks</label><br>
+        
+    
+        <input type="checkbox" name="movie874" value=874>
+        <label for="movied874">Safe Haven</label><br>
+        
+    
+        <input type="checkbox" name="movie150" value=150>
+        <label for="movied150">Scott Pilgrim vs. the World</label><br>
+        
+    
+        <input type="checkbox" name="movie152" value=152>
+        <label for="movied152">Sex and the City 2</label><br>
+        
+    
+        <input type="checkbox" name="movie883" value=883>
+        <label for="movied883">Sexy Evil Genius</label><br>
+        
+    
+        <input type="checkbox" name="movie1401" value=1401>
+        <label for="movied1401">Sleight</label><br>
+        
+    
+        <input type="checkbox" name="movie1386" value=1386>
+        <label for="movied1386">Smurfs: The Lost Village</label><br>
+        
+    
+        <input type="checkbox" name="movie898" value=898>
+        <label for="movied898">Stand Up Guys</label><br>
+        
+    
+        <input type="checkbox" name="movie1475" value=1475>
+        <label for="movied1475">Stronger</label><br>
+        
+    
+        <input type="checkbox" name="movie1300" value=1300>
+        <label for="movied1300">TMNT 2: Out of the Shadows</label><br>
+        
+    
+        <input type="checkbox" name="movie348" value=348>
+        <label for="movied348">Take Me Home Tonight</label><br>
+        
+    
+        <input type="checkbox" name="movie602" value=602>
+        <label for="movied602">Taken 2</label><br>
+        
+    
+        <input type="checkbox" name="movie1119" value=1119>
+        <label for="movied1119">Taken 3</label><br>
+        
+    
+        <input type="checkbox" name="movie604" value=604>
+        <label for="movied604">Ted</label><br>
+        
+    
+        <input type="checkbox" name="movie1211" value=1211>
+        <label for="movied1211">Ted 2</label><br>
+        
+    
+        <input type="checkbox" name="movie1049" value=1049>
+        <label for="movied1049">Teenage Mutant Nina Turtles</label><br>
+        
+    
+        <input type="checkbox" name="movie15" value=15>
+        <label for="movied15">The Bounty Hunter</label><br>
+        
+    
+        <input type="checkbox" name="movie1128" value=1128>
+        <label for="movied1128">The Boy Next Door</label><br>
+        
+    
+        <input type="checkbox" name="movie1335" value=1335>
+        <label for="movied1335">The Bye Bye Man</label><br>
+        
+    
+        <input type="checkbox" name="movie1269" value=1269>
+        <label for="movied1269">The Divergent Series: Allegiant</label><br>
+        
+    
+        <input type="checkbox" name="movie1166" value=1166>
+        <label for="movied1166">The Divergent Series: Insurgent</label><br>
+        
+    
+        <input type="checkbox" name="movie1391" value=1391>
+        <label for="movied1391">The Fate of the Furious</label><br>
+        
+    
+        <input type="checkbox" name="movie753" value=753>
+        <label for="movied753">The Hangover Part III</label><br>
+        
+    
+        <input type="checkbox" name="movie258" value=258>
+        <label for="movied258">The Hangover: Part II</label><br>
+        
+    
+        <input type="checkbox" name="movie521" value=521>
+        <label for="movied521">The Hunger Games</label><br>
+        
+    
+        <input type="checkbox" name="movie1104" value=1104>
+        <label for="movied1104">The Hunger Games: Mockingjay – Part 1</label><br>
+        
+    
+        <input type="checkbox" name="movie90" value=90>
+        <label for="movied90">The Killer Inside Me</label><br>
+        
+    
+        <input type="checkbox" name="movie95" value=95>
+        <label for="movied95">The Last Exorcism</label><br>
+        
+    
+        <input type="checkbox" name="movie807" value=807>
+        <label for="movied807">The Last Exorcism Part II</label><br>
+        
+    
+        <input type="checkbox" name="movie939" value=939>
+        <label for="movied939">The Legend of Hercules</label><br>
+        
+    
+        <input type="checkbox" name="movie304" value=304>
+        <label for="movied304">The Muppets</label><br>
+        
+    
+        <input type="checkbox" name="movie122" value=122>
+        <label for="movied122">The Next Three Days</label><br>
+        
+    
+        <input type="checkbox" name="movie943" value=943>
+        <label for="movied943">The Nut Job</label><br>
+        
+    
+        <input type="checkbox" name="movie1457" value=1457>
+        <label for="movied1457">The Nut Job 2: Nutty by Nature</label><br>
+        
+    
+        <input type="checkbox" name="movie1054" value=1054>
+        <label for="movied1054">The One I Love</label><br>
+        
+    
+        <input type="checkbox" name="movie557" value=557>
+        <label for="movied557">The Oranges</label><br>
+        
+    
+        <input type="checkbox" name="movie564" value=564>
+        <label for="movied564">The Perks of Being a Wallflower</label><br>
+        
+    
+        <input type="checkbox" name="movie860" value=860>
+        <label for="movied860">The Pretty One</label><br>
+        
+    
+        <input type="checkbox" name="movie957" value=957>
+        <label for="movied957">The Pretty One</label><br>
+        
+    
+        <input type="checkbox" name="movie335" value=335>
+        <label for="movied335">The Sitter</label><br>
+        
+    
+        <input type="checkbox" name="movie1070" value=1070>
+        <label for="movied1070">The Skeleton Twins</label><br>
+        
+    
+        <input type="checkbox" name="movie337" value=337>
+        <label for="movied337">The Smurfs</label><br>
+        
+    
+        <input type="checkbox" name="movie890" value=890>
+        <label for="movied890">The Smurfs 2</label><br>
+        
+    
+        <input type="checkbox" name="movie891" value=891>
+        <label for="movied891">The Smurfs: The Legend of Smurfy Hollow</label><br>
+        
+    
+        <input type="checkbox" name="movie1516" value=1516>
+        <label for="movied1516">The Star</label><br>
+        
+    
+        <input type="checkbox" name="movie211" value=211>
+        <label for="movied211">The Twilight Saga: Breaking Dawn - Part 1</label><br>
+        
+    
+        <input type="checkbox" name="movie47" value=47>
+        <label for="movied47">The Twilight Saga: Eclipse</label><br>
+        
+    
+        <input type="checkbox" name="movie352" value=352>
+        <label for="movied352">Thor</label><br>
+        
+    
+        <input type="checkbox" name="movie1506" value=1506>
+        <label for="movied1506">Thor: Ragnarok</label><br>
+        
+    
+        <input type="checkbox" name="movie911" value=911>
+        <label for="movied911">Thor: The Dark World</label><br>
+        
+    
+        <input type="checkbox" name="movie614" value=614>
+        <label for="movied614">Touchback</label><br>
+        
+    
+        <input type="checkbox" name="movie1168" value=1168>
+        <label for="movied1168">Tracers</label><br>
+        
+    
+        <input type="checkbox" name="movie616" value=616>
+        <label for="movied616">Underworld: Awakening</label><br>
+        
+    
+        <input type="checkbox" name="movie1333" value=1333>
+        <label for="movied1333">Underworld: Blood Wars</label><br>
+        
+    
+        <input type="checkbox" name="movie176" value=176>
+        <label for="movied176">Vampires Suck</label><br>
+        
+    
+        <input type="checkbox" name="movie619" value=619>
+        <label for="movied619">Virginia</label><br>
+        
+    
+        <input type="checkbox" name="movie1442" value=1442>
+        <label for="movied1442">War for the Planet of the Apes</label><br>
+        
+    
+        <input type="checkbox" name="movie180" value=180>
+        <label for="movied180">What's Wrong with Virginia</label><br>
+        
+    
+        <input type="checkbox" name="movie625" value=625>
+        <label for="movied625">Wrath of the Titans</label><br>
+        
+    
+        <br>
+        <input type="submit" value="Submit">  
+      </form>  
+  </div>
+{% endif %}
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 {% load static %}
@@ -919,22 +933,18 @@
 var style = getComputedStyle(document.body);
 const textAlignment_x = parseInt(style.getPropertyValue('--x-offset'), 10);
 
-
 const viewBox_x = "1800";
 const viewBox_y = "1500";
+
 var svg = d3.select("div#container")
   .append("svg")
   .attr("preserveAspectRatio", "xMinYMin meet")
   .attr("viewBox", `0 0 ${viewBox_x} ${viewBox_y}`)
   .classed("svg-content", true);
-// var svg = d3.select("svg"),
-    // width = +svg.attr("width"),
-    // height = +svg.attr("height");
-    width = parseInt(viewBox_x,10);
-    height = parseInt(viewBox_y,10);
+
+width = parseInt(viewBox_x,10);
+height = parseInt(viewBox_y,10);
     
-
-
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
     .force("charge", d3.forceManyBody().strength(-300).distanceMax(height/2))
@@ -1013,12 +1023,44 @@ var node = svg.append("g")
   .data(graph.nodes)
   .enter().append("g");
 
-defaultInstructions = ""
-node.on('mouseover', function (d, i) {
+// add text box
+const textBoxWidth = 280;
+const textBoxHeight = viewBox_y;
+const textBoxOpacity = '.90'
+function generateTextPanel(x){
+  var textBox = svg.append("rect")
+            .attr("x", x)
+            .attr("y", 0)
+            .attr("width", textBoxWidth)
+            .attr("height", textBoxHeight)
+            .attr('opacity', textBoxOpacity)
+            .attr("fill", "white");
+}
+// generate the 1st panel
+generateTextPanel(textAlignment_x);
+
+
+if ("{{ landing_page_mode|escapejs }}" == "True"){
+  // Landing page mode
+  // generate subsequent panels
+  for (i = 1; i < 6; i++){
+      generateTextPanel(textAlignment_x + (textBoxWidth) * i);
+  };
+    
+  const defaultInstructions = ""
+} else {
+  // view graph mode
+  // Instructions for user
+  // var svgText = svg.append("text");
+  // svgText
+  //   .attr("x",textAlignment_x)
+  //   .attr("y",50)
+  //   .attr("font-family", "Georgia");
+  // svgText.text(defaultInstructions);
+  
+  // interaction with nodes
+  node.on('mouseover', function (d, i) {
         simulation.stop()
-        
-        // make check boxes disappear, and legend appear
-        // checkBoxes.html("");
         legendLabels.attr("visibility", "visible")
         legendDots.attr("visibility", "visible")
 
@@ -1065,21 +1107,21 @@ node.on('mouseover', function (d, i) {
           .attr("stroke-opacity", function(d) { return d.value; });
         
         node.style('filter','none');
-
-        //d3.select('#tools').remove();
         svgText.text(defaultInstructions);
-        // svgDescription.text(defaultDescription);
-        svgDescription.html(defaultDescription);
-
-        // svgDescription2.html("<h1>hey you changed me!!!!</h1>")
-
+        svgDescription.html("defaultDescription");
         simulation.alpha(1);
         simulation.restart();
     })
-  .call(d3.drag()
+  .call(
+      d3.drag()
       .on("start", dragstarted)
       .on("drag", dragged)
-      .on("end", dragended));
+      .on("end", dragended)
+      );
+}
+
+
+
 
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -1159,29 +1201,7 @@ function dragended(d) {
   d.fy = null;
 }
 
-// add text box
-const textBoxWidth = 280;
-const textBoxHeight = viewBox_y;
-const textBoxOpacity = '.90'
-function generateTextBox(x){
-  var textBox = svg.append("rect")
-            .attr("x", x)
-            .attr("y", 0)
-            .attr("width", textBoxWidth)
-            .attr("height", textBoxHeight)
-            .attr('opacity', textBoxOpacity)
-            .attr("fill", "white");
-}
-generateTextBox(textAlignment_x);
 
-if ("{{ show_all_checkboxes|escapejs }}"){
-  for (i = 1; i < 6; i++){
-    generateTextBox(textAlignment_x + (textBoxWidth) * i);
-  }
-  const defaultInstructions = ""
-} else {
-  const defaultInstructions = "Hover over node to view movie description"
-}
 
 // add legend title
 const legendStart_y = 400;
@@ -1214,30 +1234,21 @@ var legendLabels = svg.selectAll("mylabels")
     .attr("visibility", "hidden");
     
 
-// Instructions for user
-var svgText = svg.append("text");
-svgText
-  .attr("x",textAlignment_x)
-  .attr("y",50)
-  .attr("font-family", "Georgia");
 
-svgText.text(defaultInstructions);
 
-const defaultDescription = ""
+// const descriptionTextStart = 70;
+// var svgDescription = svg.append("foreignObject")
+//     .attr("x",textAlignment_x)
+//     .attr("y",descriptionTextStart)
+//     .attr("width", textBoxWidth)
+//     .attr("height", 300)
+//     .append("xhtml:svg")
+//     .style("font", "13px 'Georgia Neue'")
+//     .style("font-style", "italic")
+//     .text("defaultDescription")
+//     ;
 
-const descriptionTextStart = 70;
-var svgDescription = svg.append("foreignObject")
-    .attr("x",textAlignment_x)
-    .attr("y",descriptionTextStart)
-    .attr("width", textBoxWidth)
-    .attr("height", 300)
-    .append("xhtml:svg")
-    .style("font", "13px 'Georgia Neue'")
-    .style("font-style", "italic")
-    .text(defaultDescription)
-    ;
-    // .html("Lorem ipsum dolor sit  amet, consectetur adipiscing elit. Donec eu enim quam. Quisque nisi risus, sagittis quis tempor nec, aliquam eget neque. Nulla bibendum semper lorem non ullamcorper. Nulla non ligula lorem. Praesent porttitor, tellus nec suscipit aliquam, enim elit posuere lorem, at laoreet enim ligula sed tortor. Ut sodales, urna a aliquam semper, nibh diam gravida sapien, sit amet fermentum purus lacus eget massa. Donec ac arcu vel magna consequat pretium et vel ligula. Donec sit amet erat elit. Vivamus eu metus eget est hendrerit rutrum. Curabitur vitae orci et leo interdum egestas ut sit amet dui. In varius enim ut sem posuere in tristique metus ultrices.<p>Integer mollis massa at orci porta vestibulum. Pellentesque dignissim turpis ut tortor ultricies condimentum et quis nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer euismod lorem vulputate dui pharetra luctus. Sed vulputate, nunc quis porttitor scelerisque, dui est varius ipsum, eu blandit mauris nibh pellentesque tortor. Vivamus ultricies ante eget ipsum pulvinar ac tempor turpis mollis. Morbi tortor orci, euismod vel sagittis ac, lobortis nec est. Quisque euismod venenatis felis at dapibus. Vestibulum dignissim nulla ut nisi tristique porttitor. Proin et nunc id arcu cursus dapibus non quis libero. Nunc ligula mi, bibendum non mattis nec, luctus id neque. Suspendisse ut eros lacus. Praesent eget lacus eget risus congue vestibulum. Morbi tincidunt pulvinar lacus sed faucibus. Phasellus sed vestibulum sapien.");
-
+// TODO delete this?
 function generateCheckBoxes(x, html){
   var checkBoxes = svg.append("foreignObject")
     .attr("x",x)
@@ -1250,16 +1261,13 @@ function generateCheckBoxes(x, html){
     .html(html)
 }
 
-// generateCheckBoxes(textAlignment_x, `<form action="/selection" method="get">
-//     <input type="checkbox" name="movie0" value=0>
-//     <label for="movie0">127 Hours</label><br>`);
-  
-// generateCheckBoxes(textAlignment_x + textBoxWidth, `<input type="checkbox" name="movie4" value=4>
-//     <label for="movie4">Do not choose</label><br>
-//     <br>
-//     <input type="submit" value="Submit">
 
-//     </form>`);
+  
+
+  
+  // add lengend 
+  
+
 
 
 
