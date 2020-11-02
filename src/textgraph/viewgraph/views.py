@@ -8,7 +8,7 @@ def index(request):
     context = {'name' : "Rowen"}
     return render(request, 'viewgraph/index.html', context)
 
-def load_all_movies_in_json(all_movies_json_path):
+def load_all_movies_in_str(all_movies_json_path):
     with open(all_movies_json_path, encoding='utf-8') as data_file:
         data = json.loads(data_file.read())
 
@@ -17,9 +17,9 @@ def load_all_movies_in_json(all_movies_json_path):
     return data_json
 
 def landing_page(request):
-    data_json = load_all_movies_in_json(all_movies_json_path)
+    data_json = load_all_movies_in_str(all_movies_json_path)
     
-    return render_graphs(request, data_json, False)
+    return render_graphs(request, data_json, True)
 
 def render_graphs(request, data_json, landing_page_mode):
 
@@ -32,53 +32,51 @@ def process_user_input(request):
     """
     return graphs containing only the requested movies 
     """
-    print("===================================================================")
-    print(dict(request.GET))
-    print("===================================================================")
+    # print("===================================================================")
+    # print(dict(request.GET))
+    # print("===================================================================")
     
     selection = dict(request.GET)
-    
-    
     user_choices = [int(selection[s][0]) for s in selection]
     
     if 9999 in user_choices:
         # load all movies 
-        data_json = load_all_movies_in_json(all_movies_json_path)
+        data_json = load_all_movies_in_str(all_movies_json_path)
     else:
         user_data = compile_json_object(user_choices)
         data_json = json.dumps(user_data)
     
-    return render_graphs(request, {'data' : data_json, 'landing_page_mode' : False})
+    return render_graphs(request, data_json, False)
 
 def compile_json_object(chosen_movie_idx):
     with open(all_movies_json_path, encoding='utf-8') as data_file:
         data = json.loads(data_file.read())
     
-    movie_idx = []
     chosen_links = []
     chosen_nodes = []
     nodes = data['nodes']
     links = data['links']
-        
+    graph_movie_idx = []
+
     for L in links:
         if (L['source_idx'] in chosen_movie_idx) or (L['target_idx'] in chosen_movie_idx):
             chosen_links.append(L)
 
-            if L['source_idx'] not in movie_idx:
-                movie_idx.append(L['source_idx'])
+            if L['source_idx'] not in graph_movie_idx:
+                graph_movie_idx.append(L['source_idx'])
 
-            if L['target_idx'] not in movie_idx:
-                movie_idx.append(L['target_idx'])
+            if L['target_idx'] not in graph_movie_idx:
+                graph_movie_idx.append(L['target_idx'])
 
     for n in nodes:
-        if n['idx'] in chosen_movie_idx:
+        if n['idx'] in graph_movie_idx:
             chosen_nodes.append(n)
 
     userJSON = {"nodes" : chosen_nodes, "links" : chosen_links}
 
-    # print('========================================')
-    # print(userJSON)
-    # print('=========================================')
+    print('========================================')
+    print(userJSON)
+    print('=========================================')
 
     return userJSON
 
