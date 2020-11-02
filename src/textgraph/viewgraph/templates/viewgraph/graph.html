@@ -23,7 +23,6 @@
     padding-bottom: 100%;
     vertical-align: top;
     overflow: hidden;
-    /* z-index: -1; */
 }
 .svg-content {
     display: inline-block;
@@ -928,7 +927,6 @@
 
 var style = getComputedStyle(document.body);
 const textAlignment_x = parseInt(style.getPropertyValue('--x-offset'), 10);
-console.log(textAlignment_x);
 
 const viewBox_x = "1800";
 const viewBox_y = "1500";
@@ -1004,9 +1002,6 @@ filter.append("feComposite").attr("in", "glowColor")
   .attr("in2", "coloredBlur")
   .attr("operator", "in")
   .attr("result", "softGlow_colored")
-
-// filter.append("feGaussianBlur").attr("in", "thicken")
-// .attr("result", "blurred");
 
 var feMerge = filter.append("feMerge");
 feMerge.append("feMergeNode")
@@ -1104,7 +1099,6 @@ if ("{{ landing_page_mode|escapejs }}" == "True"){
     })
     .on('mouseout', function (d, i) {
         // make check boxes appear, and legend disappear
-        // checkBoxes.html(defaultCheckBoxesContent);
         legendLabels.attr("visibility", "hidden")
         legendDots.attr("visibility", "hidden")
 
@@ -1131,10 +1125,6 @@ if ("{{ landing_page_mode|escapejs }}" == "True"){
       );
 }
 
-
-
-
-
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 function createPieData(d){
@@ -1145,12 +1135,11 @@ function createPieData(d){
         pieDict['percent'] = 100 / d.genre.length;
         pieData.push(pieDict);
     }
-    // console.log(pieData)
 
     return pieData;
 };
 
-/* Draw the respective pie chart for each node */
+// Draw the respective pie chart for each node
 node.each(function (d) {
           NodePieBuilder.drawNodePie(d3.select(this),
           createPieData(d), 
@@ -1193,7 +1182,6 @@ function ticked() {
         return "translate(" + d.x + "," + d.y + ")";
       })
 };
-// });
 
 function dragstarted(d) {
   if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -1211,8 +1199,6 @@ function dragended(d) {
   d.fx = null;
   d.fy = null;
 }
-
-
 
 // add legend title
 const legendStart_y = 400;
@@ -1248,6 +1234,3 @@ var legendLabels = svg.selectAll("mylabels")
 </script>
 
 </body>
-
-
-
