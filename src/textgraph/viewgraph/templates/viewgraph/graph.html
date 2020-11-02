@@ -51,11 +51,7 @@
 
 <body>
 <div id="container" class="svg-container">
-    
-    
     <svg></svg>
-    
-    
 </div>
 
 {% if landing_page_mode %}
@@ -932,6 +928,7 @@
 
 var style = getComputedStyle(document.body);
 const textAlignment_x = parseInt(style.getPropertyValue('--x-offset'), 10);
+console.log(textAlignment_x);
 
 const viewBox_x = "1800";
 const viewBox_y = "1500";
@@ -1051,12 +1048,26 @@ if ("{{ landing_page_mode|escapejs }}" == "True"){
 } else {
   // view graph mode
   // Instructions for user
-  // var svgText = svg.append("text");
-  // svgText
-  //   .attr("x",textAlignment_x)
-  //   .attr("y",50)
-  //   .attr("font-family", "Georgia");
-  // svgText.text(defaultInstructions);
+  const defaultInstructions = "Hover over circle"
+  var svgText = svg.append("text");
+  svgText
+    .attr("x",textAlignment_x)
+    .attr("y",50)
+    .attr("font-family", "Georgia");
+  svgText.text(defaultInstructions);
+
+  const defaultDescription = ""
+  const descriptionTextStart = 70;
+  var svgDescription = svg.append("foreignObject")
+    .attr("x",textAlignment_x)
+    .attr("y",descriptionTextStart)
+    .attr("width", textBoxWidth)
+    .attr("height", 300)
+    .append("xhtml:svg")
+    .style("font", "14px 'Georgia Neue'")
+    .style("font-style", "italic")
+    .text(defaultDescription)
+    ;
   
   // interaction with nodes
   node.on('mouseover', function (d, i) {
@@ -1108,7 +1119,7 @@ if ("{{ landing_page_mode|escapejs }}" == "True"){
         
         node.style('filter','none');
         svgText.text(defaultInstructions);
-        svgDescription.html("defaultDescription");
+        svgDescription.html(defaultDescription);
         simulation.alpha(1);
         simulation.restart();
     })
@@ -1205,6 +1216,7 @@ function dragended(d) {
 
 // add legend title
 const legendStart_y = 400;
+const legendStart_x = textAlignment_x + 10;
 
 // add dots in legend
 const betweenLegendElements_y = 20;
@@ -1212,7 +1224,7 @@ var legendDots = svg.selectAll("mydots")
   .data(Object.keys(colorMapping))
   .enter()
   .append("circle")
-    .attr("cx", textAlignment_x)
+    .attr("cx", legendStart_x)
     .attr("cy", function(d,i){ return legendStart_y + 25 + i*betweenLegendElements_y}) 
     .attr("r", 5)
     .style("fill", function(d,i){return colorMapping[d]})
@@ -1223,7 +1235,7 @@ var legendLabels = svg.selectAll("mylabels")
   .data(Object.keys(colorMapping))
   .enter()
   .append("text")
-    .attr("x", textAlignment_x + 20)
+    .attr("x", legendStart_x + 20)
     .attr("y", function(d,i){ return legendStart_y +30 + i*betweenLegendElements_y}) 
     .style("fill", function(d,i){return colorMapping[d]})
     .text(function(d){ return d})
@@ -1233,44 +1245,6 @@ var legendLabels = svg.selectAll("mylabels")
     .style("alignment-baseline", "middle")
     .attr("visibility", "hidden");
     
-
-
-
-// const descriptionTextStart = 70;
-// var svgDescription = svg.append("foreignObject")
-//     .attr("x",textAlignment_x)
-//     .attr("y",descriptionTextStart)
-//     .attr("width", textBoxWidth)
-//     .attr("height", 300)
-//     .append("xhtml:svg")
-//     .style("font", "13px 'Georgia Neue'")
-//     .style("font-style", "italic")
-//     .text("defaultDescription")
-//     ;
-
-// TODO delete this?
-function generateCheckBoxes(x, html){
-  var checkBoxes = svg.append("foreignObject")
-    .attr("x",x)
-    .attr("y",descriptionTextStart)
-    .attr("width", textBoxWidth)
-    .attr("height", 900)
-    .append("xhtml:svg")
-    .style("font", "13px 'Georgia Neue'")
-    .style("font-style", "italic")
-    .html(html)
-}
-
-
-  
-
-  
-  // add lengend 
-  
-
-
-
-
 </script>
 
 </body>

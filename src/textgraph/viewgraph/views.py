@@ -19,7 +19,7 @@ def load_all_movies_in_json(all_movies_json_path):
 def landing_page(request):
     data_json = load_all_movies_in_json(all_movies_json_path)
     
-    return render_graphs(request, data_json, True)
+    return render_graphs(request, data_json, False)
 
 def render_graphs(request, data_json, landing_page_mode):
 
