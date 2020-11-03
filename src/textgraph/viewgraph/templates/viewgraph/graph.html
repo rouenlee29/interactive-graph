@@ -46,6 +46,21 @@
     font-size: 15px;
 }
 
+.button {
+  background-color: white; /* Green */
+  border: none;
+  color: white;
+  position: absolute;
+  top: 35px;
+  left: var(--x-offset);
+  padding: 10px 7.5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-family: Georgia;
+}
+
 </style>
 
 <body>
@@ -917,7 +932,12 @@
         <br>
         <input type="submit" value="Submit">  
       </form>  
-  </div>
+    </div>
+{% else %}
+<button type="button" class = "button">
+  <a href="{% url 'landing_page' %}">Return to landing page</a>
+</button>
+
 {% endif %}
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -1044,15 +1064,16 @@ if ("{{ landing_page_mode|escapejs }}" == "True"){
   // view graph mode
   // Instructions for user
   const defaultInstructions = "Hover over circle"
+  const textAlignment_y = 90;
   var svgText = svg.append("text");
   svgText
     .attr("x",textAlignment_x)
-    .attr("y",50)
+    .attr("y",textAlignment_y)
     .attr("font-family", "Georgia");
   svgText.text(defaultInstructions);
 
   const defaultDescription = ""
-  const descriptionTextStart = 70;
+  const descriptionTextStart = textAlignment_y + 20;
   var svgDescription = svg.append("foreignObject")
     .attr("x",textAlignment_x)
     .attr("y",descriptionTextStart)
@@ -1063,7 +1084,7 @@ if ("{{ landing_page_mode|escapejs }}" == "True"){
     .style("font-style", "italic")
     .text(defaultDescription)
     ;
-  
+
   // interaction with nodes
   node.on('mouseover', function (d, i) {
         simulation.stop()
