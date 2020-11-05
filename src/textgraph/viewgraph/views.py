@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+import os
+import sys
+from django.conf import settings
+all_movies_json_path = os.path.join(settings.STATIC_ROOT, 'viewgraph/data-v0.1.json')
 
-all_movies_json_path = './static/viewgraph/data-v0.1.json'
+#'./static/viewgraph/data-v0.1.json'
 
 def index(request):
     context = {'name' : "Rowen"}
