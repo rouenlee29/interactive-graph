@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import json
 
-all_movies_json_path = 'C:/Users/leero/Projects/text-graph/data-v0.1.json'
+all_movies_json_path = './static/viewgraph/data-v0.1.json'
 
 def index(request):
     context = {'name' : "Rowen"}
