@@ -948,7 +948,7 @@ var style = getComputedStyle(document.body);
 const textAlignment_x = parseInt(style.getPropertyValue('--x-offset'), 10);
 
 const viewBox_x = "1800";
-const viewBox_y = "900";
+const viewBox_y = "1800";
 
 var svg = d3.select("div#container")
   .append("svg")
@@ -962,7 +962,7 @@ height = parseInt(viewBox_y,10);
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(120))
     .force("charge", d3.forceManyBody().strength(-300).distanceMax(height/2))
-    .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("center", d3.forceCenter(width / 2, height / 4))
     .velocityDecay(0.9)
     .alphaTarget(0.5)
     ;
