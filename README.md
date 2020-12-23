@@ -1,5 +1,5 @@
 # Project overview
-The final result of this project is an interactive force directed graph displaying relationships between various Holloywood movies. Click [here](https://textgraph-app.herokuapp.com/) to view and interact with the graph.
+The final result of this project is an interactive force directed graph displaying relationships between various Hollywood movies. Click [here](https://textgraph-app.herokuapp.com/) to view and interact with the graph.
 
 ![](image/textgraph.png)
 
